@@ -9,9 +9,9 @@ import com.zhtkj.jt808.common.JT808Const;
 import com.zhtkj.jt808.entity.CarRuntime;
 import com.zhtkj.jt808.entity.DataAction;
 import com.zhtkj.jt808.entity.DataParam;
-import com.zhtkj.jt808.mapper.gateway.CarRuntimeMapper;
-import com.zhtkj.jt808.mapper.gateway.DataActionMapper;
-import com.zhtkj.jt808.mapper.gateway.DataParamMapper;
+import com.zhtkj.jt808.mapper.CarRuntimeMapper;
+import com.zhtkj.jt808.mapper.DataActionMapper;
+import com.zhtkj.jt808.mapper.DataParamMapper;
 import com.zhtkj.jt808.service.codec.MsgEncoder;
 
 import io.netty.channel.Channel;

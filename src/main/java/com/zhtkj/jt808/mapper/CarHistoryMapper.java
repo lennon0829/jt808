@@ -1,4 +1,4 @@
-package com.zhtkj.jt808.mapper.gateway;
+package com.zhtkj.jt808.mapper;
 
 import org.apache.ibatis.annotations.Param;
 

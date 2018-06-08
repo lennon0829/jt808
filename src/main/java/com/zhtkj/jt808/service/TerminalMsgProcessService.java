@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.zhtkj.jt808.common.JT808Const;
-import com.zhtkj.jt808.mapper.gateway.CarEventMapper;
-import com.zhtkj.jt808.mapper.gateway.CarHistoryMapper;
-import com.zhtkj.jt808.mapper.gateway.CarRuntimeMapper;
-import com.zhtkj.jt808.mapper.gateway.DataActionMapper;
-import com.zhtkj.jt808.mapper.gateway.DataParamMapper;
+import com.zhtkj.jt808.mapper.CarEventMapper;
+import com.zhtkj.jt808.mapper.CarHistoryMapper;
+import com.zhtkj.jt808.mapper.CarRuntimeMapper;
+import com.zhtkj.jt808.mapper.DataActionMapper;
+import com.zhtkj.jt808.mapper.DataParamMapper;
 import com.zhtkj.jt808.service.codec.MsgEncoder;
 import com.zhtkj.jt808.util.CarEventUtil;
 import com.zhtkj.jt808.util.CarHistoryUtil;

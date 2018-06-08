@@ -2,8 +2,16 @@ package com.zhtkj.jt808.vo.req;
 
 import com.zhtkj.jt808.vo.PackageData;
 
+/**
+ * ClassName: LocationMsg 
+ * @Description: 基本位置信息消息
+ */
+ 
 public class LocationMsg extends PackageData {
 
+	/**
+	 * @Fields locationInfo : 基本位置信息
+	 */
 	private LocationInfo locationInfo;
 	
 	public LocationMsg() {

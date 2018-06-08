@@ -78,11 +78,11 @@ public class MsgDecoder {
 	public LocationMsg toLocationMsg(PackageData packageData) throws UnsupportedEncodingException {
 		LocationMsg locationMsg = new LocationMsg(packageData);
 		LocationInfo locationInfo = new LocationInfo();
-		byte[] msgBodyBytes = packageData.getMsgBody().getMsgBodyBytes();
+		byte[] msgBodyBytes = locationMsg.getMsgBody().getMsgBodyBytes();
 		//设置终端手机号
-		locationInfo.setDevPhone(packageData.getMsgHeader().getTerminalPhone());
+		locationInfo.setDevPhone(locationMsg.getMsgHeader().getTerminalPhone());
 		//设置终端地址
-		locationInfo.setRemoteAddress(packageData.getChannel().remoteAddress().toString());
+		locationInfo.setRemoteAddress(locationMsg.getChannel().remoteAddress().toString());
 		//处理状态
 		locationInfo.setCarState(DigitUtil.byteToBinaryStr(msgBodyBytes[2]) + DigitUtil.byteToBinaryStr(msgBodyBytes[3]));
         //处理经度
@@ -133,7 +133,7 @@ public class MsgDecoder {
 		EventMsg eventMsg = new EventMsg(packageData);
 		EventInfo eventInfo = new EventInfo();
 		LocationInfo locationInfo = new LocationInfo();
-		byte[] msgBodyBytes = packageData.getMsgBody().getMsgBodyBytes();
+		byte[] msgBodyBytes = eventMsg.getMsgBody().getMsgBodyBytes();
         //处理事件流水号
         long eventSerialId = DigitUtil.byte4ToInt(DigitUtil.sliceBytes(msgBodyBytes, 2, 5), 0);
         eventInfo.setEventSerialId(eventSerialId);
@@ -143,9 +143,9 @@ public class MsgDecoder {
         //开始处理位置信息
         byte[] locationbs = DigitUtil.sliceBytes(msgBodyBytes, 3, msgBodyBytes.length - 1);
 		//设置终端sim
-		locationInfo.setDevPhone(packageData.getMsgHeader().getTerminalPhone());
+		locationInfo.setDevPhone(eventMsg.getMsgHeader().getTerminalPhone());
 		//设置终端地址
-		locationInfo.setRemoteAddress(packageData.getChannel().remoteAddress().toString());
+		locationInfo.setRemoteAddress(eventMsg.getChannel().remoteAddress().toString());
 		//处理状态
 		locationInfo.setCarState(DigitUtil.byteToBinaryStr(locationbs[2]) + DigitUtil.byteToBinaryStr(locationbs[3]));
         //处理经度

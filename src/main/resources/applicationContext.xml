@@ -89,7 +89,7 @@
 	</bean>
 	
  	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.zhtkj.jt808.mapper.gateway"/>
+		<property name="basePackage" value="com.zhtkj.jt808.mapper"/>
 		<property name="sqlSessionFactoryBeanName" value="sessionFactoryGateway"/>
 	</bean>
 	
