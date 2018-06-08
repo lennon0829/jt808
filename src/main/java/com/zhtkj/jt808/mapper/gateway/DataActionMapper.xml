@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhtkj.jt808.mapper.gateway.DataActionMapper">
+	
+	<update id="updateActionDealResult">
+		UPDATE zt_data_action
+		SET deal_result = '${msgBody.result}',
+		  deal_time = now()
+		WHERE
+		  action_id = '${msgBody.serialId}' 
+	</update>
+
+	<update id="updateActionReceiveResult">
+		UPDATE zt_data_action
+		SET receive_result = '${receiveResult}'
+		WHERE
+		  action_id = '${actionId}' 
+	</update>
+	
+	<select id="findSendActionData" resultType="com.zhtkj.jt808.entity.DataAction">
+		select 
+		  action_id actionId,
+		  action_type actionType,
+	      action_value actionValue,
+	      car_pass carPass,
+	      deal_result dealResult,
+	      deal_time dealTime,
+	      phone_number phoneNumber,
+	      receive_result receiveResult,
+	      resend_count resendCount,
+	      send_person sendPerson,
+	      send_remark sendRemark,
+	      store_time storeTime,
+	      img_path imgPath
+	    from 
+	      zt_data_action 
+	    where 
+	      receive_result = 0 
+	</select>
+	
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhtkj.jt808.mapper.gateway.DataParamMapper">
+	
+	<update id="updateParamResult">
+		update zt_data_param
+		set deal_result = '${msgBody.result}',
+		  deal_time = now()
+		where
+		  param_id = '${msgBody.serialId}' 
+	</update>
+	
+	<update id="updateParamReceiveResult">
+		update zt_data_param
+		set receive_result = '${receiveResult}'
+		where
+		  param_id = '${paramId}' 
+	</update>
+	
+	<select id="findSendParamData" resultType="com.zhtkj.jt808.entity.DataParam">
+		select 
+		  param_id paramId,
+	      car_pass carPass,
+	      phone_number phoneNumber,
+	      param_type paramType,
+	      param_deal paramDeal,
+	      type_id typeId,
+	      type_name typeName,
+	      limit_value limitValue,
+	      start_time startTime,
+	      start_hourtime startHourtime,
+	      end_time endTime,
+	      end_hourtime endHourtime,
+	      store_time storeTime,
+	      deal_time dealTime,
+	      resend_count resendCount,
+	      receive_result receiveResult,
+	      deal_result dealResult,
+	      send_person sendPerson,
+	      send_remark sendRemark,
+	      type_value typeValue
+	    from 
+	      zt_data_param 
+	    where 
+	      receive_result = 0 
+	</select>
+</mapper>

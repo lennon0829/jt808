@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhtkj.jt808.mapper.gateway.CarRuntimeMapper">
+
+	<insert id="insertCarRuntime">
+		insert into zt_car_runtime (
+		  dev_phone,
+		  car_number,
+		  ip_address,
+		  gps_pos_x,
+		  gps_pos_y,
+		  gps_speed,
+		  gps_height,
+		  gps_direct,
+		  gps_valid,
+		  box_up,
+		  box_empty,
+		  box_close,
+		  car_passport,
+		  car_state,
+		  car_weigui,
+		  car_password,
+		  send_datetime,
+		  driver_id,
+		  revice_datetime,
+		  online_state
+		)
+		values
+		  (
+		  	'${locationInfo.devPhone}',
+		    '${locationInfo.carNumber}',
+		    '${locationInfo.remoteAddress}',
+		    ${locationInfo.gpsPosX},
+		    ${locationInfo.gpsPosY},
+		    ${locationInfo.gpsSpeed},
+		    ${locationInfo.gpsHeight},
+		    ${locationInfo.gpsDirect},
+		    1,
+		    ${locationInfo.boxUp},
+		    ${locationInfo.boxEmpty},
+		    ${locationInfo.boxClose},
+		    '${locationInfo.workPassport}',
+		    '${locationInfo.carState}',
+		    ${locationInfo.carWeigui},
+		    'zt12345678',
+		    '${locationInfo.sendDatetime}',
+		    '${locationInfo.driverId}',
+		    now(),
+		    1
+		  ) 
+	</insert>
+	
+	<update id="updateCarRuntime">
+		UPDATE zt_car_runtime
+		SET car_number = '${locationInfo.carNumber}',
+		 ip_address = '${locationInfo.remoteAddress}',
+		 gps_pos_x = '${locationInfo.gpsPosX}',
+		 gps_pos_y = '${locationInfo.gpsPosY}',
+		 gps_speed = '${locationInfo.gpsSpeed}',
+		 gps_height = '${locationInfo.gpsHeight}',
+		 gps_direct = '${locationInfo.gpsDirect}',
+		 gps_valid = 1,
+		 box_up = '${locationInfo.boxUp}',
+		 box_empty = '${locationInfo.boxEmpty}',
+		 box_close = '${locationInfo.boxClose}',
+		 car_passport = '${locationInfo.workPassport}',
+		 car_state = '${locationInfo.carState}',
+		 car_weigui = '${locationInfo.carWeigui}',
+		 send_datetime = '${locationInfo.sendDatetime}',
+		 driver_id = '${locationInfo.driverId}',
+		 revice_datetime = now(),
+		 online_state = 1
+		WHERE
+			dev_phone = '${locationInfo.devPhone}' 
+	</update>
+
+	<update id="setCarOnlineState">
+		update zt_car_runtime
+		set online_datetime = now(),
+		  online_state = 1
+		where
+		  dev_phone = '${devPhone}' 
+	</update>
+	
+    <update id="setCarOfflineState">
+		update zt_car_runtime
+		set offline_datetime = now(),
+		  online_state = 0
+		where
+		  revice_datetime &lt;= '${idleTime}' 
+	</update>
+	
+	<select id="findCarPassword" resultType="com.zhtkj.jt808.entity.CarRuntime">
+		select 
+		  carPassword
+	    from 
+	      zt_car_runtime 
+	    where 
+	      dev_phone = '${terminalPhone}'
+	</select>
+</mapper>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/data/mongo
+    http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<context:component-scan base-package="com.zhtkj.jt808" annotation-config="true">
+	</context:component-scan>
+	
+	<bean id="propertyResources" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>classpath:DBConfig.properties</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" ref="propertyResources"/>
+	</bean>
+
+<!-- 	<bean id="dataSourceZhatu" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="name" value="dataSourceZhatu" />
+		<property name="driverClassName" value="${jdbc.zhatu.driver}"/>
+		<property name="url" value="${jdbc.zhatu.url}" />
+		<property name="username" value="${jdbc.zhatu.username}"/>
+		<property name="password" value="${jdbc.zhatu.password}"/>
+		<property name="initialSize" value="1"/>
+		<property name="maxActive" value="10"/>
+		<property name="minIdle" value="0"/>
+		<property name="maxWait" value="30000"/>
+		<property name="connectionProperties" value="druid.stat.slowSqlMillis=60000" />
+		<property name="removeAbandoned" value="false"/>
+		<property name="removeAbandonedTimeout" value="1800"/>
+		<property name="timeBetweenEvictionRunsMillis" value="3600000"/>
+		<property name="minEvictableIdleTimeMillis" value="1800000"/>
+		<property name="maxEvictableIdleTimeMillis" value="3600000"/>
+		<property name="validationQuery" value="SELECT 'x' from dual" />
+		<property name="validationQueryTimeout" value="10"/>
+		<property name="testWhileIdle" value="false"/>
+		<property name="testOnBorrow" value="false"/>
+		<property name="testOnReturn" value="false"/>
+		<property name="poolPreparedStatements" value="true"/>
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+	</bean> -->
+	
+    <bean id="dataSourceGateway" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="name" value="dataSourceGateway" />
+		<property name="driverClassName" value="${jdbc.gateway.driver}"/>
+		<property name="url" value="${jdbc.gateway.url}" />
+		<property name="username" value="${jdbc.gateway.username}"/>
+		<property name="password" value="${jdbc.gateway.password}"/>
+		<property name="initialSize" value="3"/>
+		<property name="maxActive" value="10"/>
+		<property name="minIdle" value="0"/>
+		<property name="maxWait" value="30000"/>
+		<property name="connectionProperties" value="druid.stat.slowSqlMillis=60000"/>
+		<property name="removeAbandoned" value="false"/>
+		<property name="removeAbandonedTimeout" value="1800"/>
+		<property name="timeBetweenEvictionRunsMillis" value="3600000"/>
+		<property name="minEvictableIdleTimeMillis" value="1800000"/>
+		<property name="maxEvictableIdleTimeMillis" value="3600000"/>
+		<property name="connectionInitSqls" value="select '1' from dual"/>
+		<property name="validationQuery" value="SELECT '1' from dual"/>
+		<property name="validationQueryTimeout" value="10"/>
+		<property name="testWhileIdle" value="false"/>
+		<property name="testOnBorrow" value="false"/>
+		<property name="testOnReturn" value="false"/>
+		<property name="poolPreparedStatements" value="true"/>
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+	</bean>
+	
+<!-- 	<bean id="sessionFactoryZhatu" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceZhatu"/>
+		<property name="typeAliasesPackage" value="com.zhtkj.entity.zhatu"/>
+	</bean> -->
+
+	<bean id="sessionFactoryGateway" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceGateway"/>
+	</bean>
+	
+ 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zhtkj.jt808.mapper.gateway"/>
+		<property name="sqlSessionFactoryBeanName" value="sessionFactoryGateway"/>
+	</bean>
+	
+    <!-- Spring注解方式配置调度任务 -->  
+    <task:annotation-driven/>
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+      <property name="corePoolSize" value="6" />
+      <property name="maxPoolSize" value="10" />
+      <property name="queueCapacity" value="16" />
+  	</bean>
+</beans>  
