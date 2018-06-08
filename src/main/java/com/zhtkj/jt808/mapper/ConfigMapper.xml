@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhtkj.jt808.mapper.ConfigMapper">
+
+	<insert id="insertConfig">
+		insert into zt_config (
+		  mac,
+		  car_number,
+		  dev_phone,
+		  version,
+		  version_sys,
+		  ecu_type,
+		  car_type,
+		  update_tag,
+		  update_cfg_tag,
+		  report_time
+		)
+		values
+		  (
+		  	'${terminalInfo.mac}',
+		    '${terminalInfo.carNumber}',
+		    '${terminalInfo.devPhone}',
+		    '${terminalInfo.version}',
+		    '${terminalInfo.version}',
+		    '${terminalInfo.ecuType}',
+		    '${terminalInfo.carType}',
+		    0,
+		    0,
+		    now()
+		  ) 
+	</insert>
+	
+	<update id="updateConfig">
+		update zt_config
+		set car_number = '${terminalInfo.carNumber}',
+		  dev_phone = '${terminalInfo.devPhone}',
+		  version = '${terminalInfo.version}',
+		  ecu_type = '${terminalInfo.ecuType}',
+		  car_type = '${terminalInfo.carType}',
+		  report_time = now()
+		where
+		  mac = '${terminalInfo.mac}' 
+	</update>
+
+	<update id="selectConfigByKey" resultType="com.zhtkj.jt808.entity.Config">
+		select
+		  mac,
+		  car_number carNumber,
+		  dev_phone devPhone,
+		  version,
+		  version_sys versionSys,
+		  ecu_type ecuType,
+		  car_type carType,
+		  update_tag updateTag,
+		  update_cfg_tag updateCfgTag,
+		  report_time reportTime
+		where
+		  mac = '${mac}' 
+	</update>
+
+</mapper>

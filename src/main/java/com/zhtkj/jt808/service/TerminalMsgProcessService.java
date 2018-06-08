@@ -10,9 +10,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.zhtkj.jt808.common.JT808Const;
+import com.zhtkj.jt808.entity.Config;
 import com.zhtkj.jt808.mapper.CarEventMapper;
 import com.zhtkj.jt808.mapper.CarHistoryMapper;
 import com.zhtkj.jt808.mapper.CarRuntimeMapper;
+import com.zhtkj.jt808.mapper.ConfigMapper;
 import com.zhtkj.jt808.mapper.DataActionMapper;
 import com.zhtkj.jt808.mapper.DataParamMapper;
 import com.zhtkj.jt808.service.codec.MsgEncoder;
@@ -25,6 +27,8 @@ import com.zhtkj.jt808.vo.req.EventMsg;
 import com.zhtkj.jt808.vo.req.EventMsg.EventInfo;
 import com.zhtkj.jt808.vo.req.LocationMsg;
 import com.zhtkj.jt808.vo.req.LocationMsg.LocationInfo;
+import com.zhtkj.jt808.vo.req.TerminalMsg;
+import com.zhtkj.jt808.vo.req.TerminalMsg.TerminalInfo;
 import com.zhtkj.jt808.vo.resp.RespMsgBody;
 
 @Service
@@ -49,6 +53,9 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
 	@Autowired
     private DataParamMapper dataParamMapper;
     
+	@Autowired
+    private ConfigMapper configMapper;
+	
     //处理终端登录业务
     public void processLoginMsg(PackageData packageData) throws Exception {
         byte[] bs = this.msgEncoder.encode4LoginResp(packageData, new RespMsgBody((byte) 1));
@@ -89,6 +96,48 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     //处理自检信息业务
     public void processSelfCheckMsg(PackageData packageData) {
     	carRuntimeMapper.setCarOnlineState(packageData.getMsgHeader().getTerminalPhone());
+    }
+    
+    //处理终端信息上报业务
+    public void processTerminalInfoMsg(TerminalMsg terminalMsg) throws InterruptedException {
+    	TerminalInfo terminalInfo = terminalMsg.getTerminalInfo();
+    	if (configMapper.updateConfig(terminalInfo) == 0) {
+    		configMapper.insertConfig(terminalInfo);
+    	}
+    	int replyResult = 3;
+    	Config config = configMapper.selectConfigByKey(terminalInfo.getMac()).get(0);
+    	String[] versions = config.getVersion().replace("V", "").split("\\.");
+    	String[] sysVersions = config.getVersionSys().replace("V", "").split("\\.");
+    	int updateTag = config.getUpdateTag();
+    	int	updateCfgTag = config.getUpdateCfgTag();
+    	int[] versionsInt = new int[4];
+    	int[] sysVersionsInt = new int[4];
+    	for (int i = 0; i < 4; i++) {
+    		if (versions.length >= (i + 1)) {
+    			versionsInt[i] = Integer.valueOf(versions[i]).intValue();
+    		} else {
+    			versionsInt[i] = 0;
+    		}
+    		if (sysVersions.length >= (i + 1)) {
+    			sysVersionsInt[i] = Integer.valueOf(sysVersions[i]).intValue();
+    		} else {
+    			sysVersionsInt[i] = 0;
+    		}
+    	}
+    	if (sysVersionsInt[0] > versionsInt[0] ||
+    		sysVersionsInt[1] > versionsInt[1] ||
+    		sysVersionsInt[2] > versionsInt[2] ||
+    		sysVersionsInt[3] > versionsInt[3]) {
+    		if (updateTag == 1 && updateCfgTag == 0) {
+    			replyResult = 1;
+    		} else if (updateTag == 1 && updateCfgTag == 1) {
+    			replyResult = 2;
+    		}
+    	} else {
+    		replyResult = 0;
+    	}
+    	byte[] bs = msgEncoder.encode4TerminalConfigResp(terminalMsg, new RespMsgBody((byte) replyResult));
+    	super.send2Terminal(terminalMsg.getChannel(), bs);
     }
     
     //处理指令业务，这里是处理终端返回的指令执行响应,不是下发指令

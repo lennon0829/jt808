@@ -16,6 +16,8 @@ import com.zhtkj.jt808.vo.req.EventMsg;
 import com.zhtkj.jt808.vo.req.EventMsg.EventInfo;
 import com.zhtkj.jt808.vo.req.LocationMsg;
 import com.zhtkj.jt808.vo.req.LocationMsg.LocationInfo;
+import com.zhtkj.jt808.vo.req.TerminalMsg;
+import com.zhtkj.jt808.vo.req.TerminalMsg.TerminalInfo;
 
 @Component
 @Scope("prototype")
@@ -192,4 +194,25 @@ public class MsgDecoder {
 		return eventMsg;
 	}
 	
+	//解码终端信息
+	public TerminalMsg toTerminalMsg(PackageData packageData) throws UnsupportedEncodingException {
+		TerminalMsg terminalMsg = new TerminalMsg(packageData);
+		TerminalInfo terminalInfo = new TerminalInfo();
+		byte[] bodybs = packageData.getMsgBody().getMsgBodyBytes();
+    	Integer ecuType = (int) bodybs[8];
+    	Integer carType = (int) bodybs[9];
+    	byte[] carinfobs = new byte[bodybs.length - 10];
+    	for (int i = 0; i < bodybs.length - 10; i++) {
+    		carinfobs[i] = bodybs[i + 10];
+    	}
+    	String[] carInfo = new String(carinfobs, "utf8").split(",");
+    	terminalInfo.setMac(carInfo[0]);
+    	terminalInfo.setCarNumber(carInfo[1]);
+    	terminalInfo.setDevPhone(packageData.getMsgHeader().getTerminalPhone());
+    	terminalInfo.setVersion(carInfo[2]);
+    	terminalInfo.setEcuType(ecuType.toString());
+    	terminalInfo.setCarType(carType.toString());
+    	terminalMsg.setTerminalInfo(terminalInfo);
+    	return terminalMsg;
+	}
 }
