@@ -39,15 +39,15 @@ public class ServerMsgProcessService extends BaseMsgProcessService {
     			//根据不同的指令类型打包消息体byte[]
 				int actionType = action.getActionType();
 				byte[] bodybs = null;
-				if (actionType == 1) {
+				if (actionType == 1) { //锁车命令
 					bodybs = msgEncoder.encode4SendActionBody(JT808Const.ACTION_BODY_ID_LOCKCAR, action);
-				} else if (actionType == 2) {
+				} else if (actionType == 2) { //限速命令
 					bodybs = msgEncoder.encode4SendActionBody(JT808Const.ACTION_BODY_ID_LIMITSPEED, action);
-				} else if (actionType == 3) {
+				} else if (actionType == 3) { //限举命令
 					bodybs = msgEncoder.encode4SendActionBody(JT808Const.ACTION_BODY_ID_LIMITUP, action);
-				} else if (actionType == 6) {
+				} else if (actionType == 6) { //管控命令
 					bodybs = msgEncoder.encode4SendActionBody(JT808Const.ACTION_BODY_ID_CONTROL, action);
-				} else if (actionType == 7) {
+				} else if (actionType == 7) { //运输公司锁车命令
 					bodybs = msgEncoder.encode4SendActionBody(JT808Const.ACTION_BODY_ID_LOCKCARCOMPANY, action);
 				} else if (actionType == 4) { //抓拍指令
 					bodybs = msgEncoder.encode4ImageActionBody(JT808Const.ACTION_BODY_ID_IMGACT, action);
@@ -118,7 +118,7 @@ public class ServerMsgProcessService extends BaseMsgProcessService {
 				}
 				byte[] msgbs = msgEncoder.encode4Msg(JT808Const.PARAM_HEAD_ID, param.getPhoneNumber(), bodybs);
 				Channel channel = sessionManager.getChannelByKey(param.getPhoneNumber());
-				if (channel != null && channel.isActive()) {
+				if (channel != null && channel.isOpen()) {
 					send2Terminal(channel, msgbs);
 					dataParamMapper.updateParamReceiveResult(param.getParamId(), 1);
 				} else {
