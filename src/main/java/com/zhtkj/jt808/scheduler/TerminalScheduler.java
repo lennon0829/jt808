@@ -20,7 +20,7 @@ public class TerminalScheduler {
 	@Autowired
 	private CarRuntimeMapper carRuntimeMapper;
 	
-	//移除没有上报数据的终端session
+	//移除没有持续上报数据的终端session
 	@Scheduled(cron = "0 6/6 * * * ? ")
 	public void removeIdleSession() {
 		Iterator<Entry<String, Session>> iterator = 
