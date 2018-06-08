@@ -141,7 +141,7 @@ public class MsgEncoder {
 	}
 	
 	//编码参数消息体（直接取值）
-	public byte[] encode4SendDirectParamBody(int msgType, DataParam param) {
+	public byte[] encode4SendDirectParamBody(int msgType, DataParam param) throws UnsupportedEncodingException {
         byte[] msgTypebs = new byte[2];
         msgTypebs = DigitUtil.shortTo2Byte((short) msgType);
         byte[] serialbs = new byte[4];
@@ -149,7 +149,7 @@ public class MsgEncoder {
 		return ArrayUtil.concatAll(msgTypebs, serialbs, 
 				new byte[] {param.getParamDeal()}, 
 				new byte[] {param.getLimitValue()},
-				param.getTypeValue().getBytes());
+				param.getTypeValue().getBytes("GBK"));
 	}
 	
 	//编码参数消息体（围栏类型）

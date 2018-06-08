@@ -92,10 +92,11 @@
 	
 	<select id="findCarPassword" resultType="com.zhtkj.jt808.entity.CarRuntime">
 		select 
-		  carPassword
+		  car_password carPassword
 	    from 
 	      zt_car_runtime 
 	    where 
 	      dev_phone = '${terminalPhone}'
+	    limit 1
 	</select>
 </mapper>

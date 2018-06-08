@@ -53,9 +53,9 @@ public class ServerMsgProcessService extends BaseMsgProcessService {
 					bodybs = msgEncoder.encode4ImageActionBody(JT808Const.ACTION_BODY_ID_IMGACT, action);
 				} else if (actionType == 5) { //密码指令
 					List<CarRuntime> carRuntimes = carRuntimeMapper.findCarPassword(action.getPhoneNumber());
-					if (carRuntimes.size() > 0 && carRuntimes.get(0).getCarPassport() != null) {
+					if (carRuntimes.size() > 0 && carRuntimes.get(0).getCarPassword() != null) {
 						bodybs = msgEncoder.encode4PasswordActionBody(
-								JT808Const.ACTION_BODY_ID_PASSWORD, action, carRuntimes.get(0).getCarPassport());
+								JT808Const.ACTION_BODY_ID_PASSWORD, action, carRuntimes.get(0).getCarPassword());
 					} else {
 						continue;
 					}
