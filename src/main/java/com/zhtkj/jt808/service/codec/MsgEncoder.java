@@ -122,7 +122,7 @@ public class MsgEncoder {
 	}
 	
 	//编码抓拍指令消息体
-	public byte[] encode4CatchImgActionBody(int msgType, DataAction action) {
+	public byte[] encode4ImageActionBody(int msgType, DataAction action) {
         byte[] msgTypebs = new byte[2];
         msgTypebs = DigitUtil.shortTo2Byte((short) msgType);
         byte[] serialbs = new byte[4];

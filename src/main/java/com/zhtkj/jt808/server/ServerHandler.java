@@ -88,8 +88,8 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 			body.getType() == JT808Const.ACTION_BODY_ID_CONTROL ||
 			body.getType() == JT808Const.ACTION_BODY_ID_LOCKCARCOMPANY) {
 			this.msgProcessService.processActionMsg(packageData);
-		} else if (body.getType() == JT808Const.ACTION_BODY_ID_CATCHIMG) {
-			this.msgProcessService.processCatchImgMsg(packageData);
+		} else if (body.getType() == JT808Const.ACTION_BODY_ID_IMGACT) {
+			this.msgProcessService.processImageActionMsg(packageData);
 		}
 		
 		//参数类业务处理，在这里是接收下发参数的响应，不是下发参数

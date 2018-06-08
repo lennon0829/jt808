@@ -50,7 +50,7 @@ public class ServerMsgProcessService extends BaseMsgProcessService {
 				} else if (actionType == 7) {
 					bodybs = msgEncoder.encode4SendActionBody(JT808Const.ACTION_BODY_ID_LOCKCARCOMPANY, action);
 				} else if (actionType == 4) { //抓拍指令
-					bodybs = msgEncoder.encode4CatchImgActionBody(JT808Const.ACTION_BODY_ID_CATCHIMG, action);
+					bodybs = msgEncoder.encode4ImageActionBody(JT808Const.ACTION_BODY_ID_IMGACT, action);
 				} else if (actionType == 5) { //密码指令
 					List<CarRuntime> carRuntimes = carRuntimeMapper.findCarPassword(action.getPhoneNumber());
 					if (carRuntimes.size() > 0 && carRuntimes.get(0).getCarPassport() != null) {

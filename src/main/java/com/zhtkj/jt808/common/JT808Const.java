@@ -32,7 +32,7 @@ public class JT808Const {
 
     public static final int ACTION_BODY_ID_LIMITUP = 0x0203; //命令类 - 限举命令ID     
  
-    public static final int ACTION_BODY_ID_CATCHIMG = 0x0204; //命令类 - 抓拍命令ID     
+    public static final int ACTION_BODY_ID_IMGACT = 0x0204; //命令类 - 抓拍命令ID     
 
     public static final int ACTION_BODY_ID_PASSWORD = 0x0205; //命令类 - 密码命令ID
 

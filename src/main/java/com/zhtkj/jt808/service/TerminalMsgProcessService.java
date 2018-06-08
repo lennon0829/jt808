@@ -97,7 +97,7 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     }
     
     //处理抓拍业务
-    public void processCatchImgMsg(PackageData packageData) throws Exception {
+    public void processImageActionMsg(PackageData packageData) throws Exception {
     	MsgBody msgBody = packageData.getMsgBody();
     	byte[] msgBodyBytes = msgBody.getMsgBodyBytes();
     	long serialId = msgBody.getSerialId();
