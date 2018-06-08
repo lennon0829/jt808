@@ -3,6 +3,7 @@ package com.zhtkj.jt808.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.zhtkj.jt808.common.JT808Const;
@@ -17,6 +18,7 @@ import com.zhtkj.jt808.service.codec.MsgEncoder;
 import io.netty.channel.Channel;
 
 @Service
+@Scope("prototype")
 public class ServerMsgProcessService extends BaseMsgProcessService {
 
 	@Autowired

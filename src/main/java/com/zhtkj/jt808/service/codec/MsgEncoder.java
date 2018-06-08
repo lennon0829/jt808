@@ -22,7 +22,6 @@ public class MsgEncoder {
 	//编码整个消息包
 	public byte[] encode4Msg(int typeId, String terminalPhone, byte[] bodybs) {
         //消息头
-        //第一个字节是标识符，0x7e，由808协议定义
         byte[] headbs = new byte[13];
         headbs[0] = (byte) JT808Const.MSG_DELIMITER;
         //标识Id
@@ -79,7 +78,7 @@ public class MsgEncoder {
         return msgbs;
 	}
 	
-	//编码通用的应答消息体
+	//编码通用的应答消息体(主要是指令、参数下发时的应答)
 	public byte[] encode4RespBody(int msgType, int result) {
         byte[] src = new byte[2];
         src = DigitUtil.shortTo2Byte((short) msgType);
