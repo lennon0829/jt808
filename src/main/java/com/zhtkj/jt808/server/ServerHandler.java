@@ -37,6 +37,8 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 			// 引用channel,以便回送数据给终端
 			pkg.setChannel(ctx.channel());
 			this.processPackageData(pkg);
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			ReferenceCountUtil.release(msg);
 		}
@@ -63,29 +65,17 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 	}
 	
 	//业务处理逻辑
-	private void processPackageData(PackageData packageData) {
+	private void processPackageData(PackageData packageData) throws Exception {
 		MsgBody body = packageData.getMsgBody();
 		//任务类业务处理，这里是接收终端主动上报的信息，包括登录、上报的位置信息、上报的事件等等
 		if (body.getType() == JT808Const.TASK_BODY_ID_LOGIN) {
-			try {
-				this.msgProcessService.processLoginMsg(packageData);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			this.msgProcessService.processLoginMsg(packageData);
 		} else if (body.getType() == JT808Const.TASK_BODY_ID_GPS) {
-			try {
-				LocationMsg msg = this.msgDecoder.toLocationMsg(packageData);
-				this.msgProcessService.processLocationMsg(msg);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			LocationMsg msg = this.msgDecoder.toLocationMsg(packageData);
+			this.msgProcessService.processLocationMsg(msg);
 		} else if (body.getType() == JT808Const.TASK_BODY_ID_EVENT) {
-			try {
-				EventMsg msg = this.msgDecoder.toEventMsg(packageData);
-				this.msgProcessService.processEventMsg(msg);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			EventMsg msg = this.msgDecoder.toEventMsg(packageData);
+			this.msgProcessService.processEventMsg(msg);
 		} else if (body.getType() == JT808Const.TASK_BODY_ID_SELFCHECK) {
 			this.msgProcessService.processSelfCheckMsg(packageData);
 		}
@@ -99,11 +89,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 			body.getType() == JT808Const.ACTION_BODY_ID_LOCKCARCOMPANY) {
 			this.msgProcessService.processActionMsg(packageData);
 		} else if (body.getType() == JT808Const.ACTION_BODY_ID_CATCHIMG) {
-			try {
-				this.msgProcessService.processCatchImgMsg(packageData);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			this.msgProcessService.processCatchImgMsg(packageData);
 		}
 		
 		//参数类业务处理，在这里是接收下发参数的响应，不是下发参数
