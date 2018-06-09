@@ -38,11 +38,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 			pkg.setChannel(ctx.channel());
 			this.processPackageData(pkg);
 		} finally {
-			try {
-				ReferenceCountUtil.release(msg);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			ReferenceCountUtil.release(msg);
 		}
 	}
 	
