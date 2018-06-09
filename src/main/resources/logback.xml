@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd"
-    scan="false" scanPeriod="1 minutes" debug="true">
+    scan="false" scanPeriod="1 minutes" debug="false">
 
     <!--定义日志文件的存储地址, 勿在 LogBack 的配置中使用相对路径 -->
 	<property name="LOG_HOME" value="c:/log4j" />
@@ -14,6 +14,7 @@
         </encoder>
     </appender>
 	
+	<!-- 写入日志文件 -->
   	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
   		<file>${LOG_HOME}/netty-server.log</file>
     	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
