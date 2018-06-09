@@ -93,7 +93,8 @@
 		<property name="sqlSessionFactoryBeanName" value="sessionFactoryGateway"/>
 	</bean>
 	
-    <!-- Spring注解方式配置调度任务 -->  
-    <task:annotation-driven/>
+    <!-- spring注解方式配置调度任务 -->
+    <task:scheduler id="scheduler" pool-size="6"/>
+    <task:annotation-driven scheduler="scheduler"/>
 
 </beans>  
