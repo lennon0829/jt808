@@ -16,6 +16,8 @@ import com.zhtkj.jt808.mapper.gateway.CarRuntimeMapper;
 import com.zhtkj.jt808.mapper.gateway.DataActionMapper;
 import com.zhtkj.jt808.mapper.gateway.DataParamMapper;
 import com.zhtkj.jt808.service.codec.MsgEncoder;
+import com.zhtkj.jt808.util.CarEventUtil;
+import com.zhtkj.jt808.util.CarHistoryUtil;
 import com.zhtkj.jt808.vo.PackageData;
 import com.zhtkj.jt808.vo.PackageData.MsgBody;
 import com.zhtkj.jt808.vo.Session;
@@ -63,7 +65,10 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     	if (carRuntimeMapper.updateCarRuntime(locationInfo) == 0) {
     		carRuntimeMapper.insertCarRuntime(locationInfo);
     	}
-    	carHistoryMapper.insertCarHistory(DateTime.now().toString("M"), locationInfo);
+    	//判断是否需要写入位置信息到数据库
+    	if (CarHistoryUtil.isPersistent(locationInfo)) {
+    		carHistoryMapper.insertCarHistory(DateTime.now().toString("M"), locationInfo);
+    	}
     	Session session = sessionManager.findSessionByKey(msg.getMsgHeader().getTerminalPhone());
     	if (session != null) {
     		session.setLastCommunicateTime(DateTime.now());
@@ -75,7 +80,10 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     //处理事件业务
     public void processEventMsg(EventMsg msg) throws Exception {
     	EventInfo eventInfo = msg.getEventInfo();
-    	carEventMapper.insertCarEvent(DateTime.now().toString("M"), eventInfo, eventInfo.getLocationInfo());
+    	//判断是否需要写入事件到数据库
+    	if (CarEventUtil.isPersistent(eventInfo)) {
+    		carEventMapper.insertCarEvent(DateTime.now().toString("M"), eventInfo, eventInfo.getLocationInfo());
+    	}
     }
     
     //处理自检信息业务
