@@ -7,6 +7,7 @@ import com.zhtkj.jt808.vo.PackageData;
 import com.zhtkj.jt808.vo.PackageData.MsgBody;
 import com.zhtkj.jt808.vo.req.EventMsg;
 import com.zhtkj.jt808.vo.req.LocationMsg;
+import com.zhtkj.jt808.vo.req.VersionMsg;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -78,6 +79,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 			this.msgProcessService.processEventMsg(msg);
 		} else if (body.getType() == JT808Const.TASK_BODY_ID_SELFCHECK) {
 			this.msgProcessService.processSelfCheckMsg(packageData);
+		} else if (body.getType() == JT808Const.TASK_BODY_ID_VERSION) {
+			VersionMsg msg = this.msgDecoder.toVersionMsg(packageData);
+			this.msgProcessService.processVersionMsg(msg);
 		}
 		
 		//命令类业务处理，在这里是接收下发命令的响应，不是下发命令

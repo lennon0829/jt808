@@ -27,8 +27,8 @@ import com.zhtkj.jt808.vo.req.EventMsg;
 import com.zhtkj.jt808.vo.req.EventMsg.EventInfo;
 import com.zhtkj.jt808.vo.req.LocationMsg;
 import com.zhtkj.jt808.vo.req.LocationMsg.LocationInfo;
-import com.zhtkj.jt808.vo.req.TerminalMsg;
-import com.zhtkj.jt808.vo.req.TerminalMsg.TerminalInfo;
+import com.zhtkj.jt808.vo.req.VersionMsg;
+import com.zhtkj.jt808.vo.req.VersionMsg.VersionInfo;
 import com.zhtkj.jt808.vo.resp.RespMsgBody;
 
 @Service
@@ -98,14 +98,14 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     	carRuntimeMapper.setCarOnlineState(packageData.getMsgHeader().getTerminalPhone());
     }
     
-    //处理终端信息上报业务
-    public void processTerminalInfoMsg(TerminalMsg terminalMsg) throws InterruptedException {
-    	TerminalInfo terminalInfo = terminalMsg.getTerminalInfo();
-    	if (configMapper.updateConfig(terminalInfo) == 0) {
-    		configMapper.insertConfig(terminalInfo);
+    //处理终端版本信息业务
+    public void processVersionMsg(VersionMsg versionMsg) throws InterruptedException {
+    	VersionInfo versionInfo = versionMsg.getVersionInfo();
+    	if (configMapper.updateConfig(versionInfo) == 0) {
+    		configMapper.insertConfig(versionInfo);
     	}
     	int replyResult = 3;
-    	Config config = configMapper.selectConfigByKey(terminalInfo.getMac()).get(0);
+    	Config config = configMapper.selectConfigByKey(versionInfo.getMac()).get(0);
     	String[] versions = config.getVersion().replace("V", "").split("\\.");
     	String[] sysVersions = config.getVersionSys().replace("V", "").split("\\.");
     	int updateTag = config.getUpdateTag();
@@ -136,8 +136,8 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     	} else {
     		replyResult = 0;
     	}
-    	byte[] bs = msgEncoder.encode4TerminalConfigResp(terminalMsg, new RespMsgBody((byte) replyResult));
-    	super.send2Terminal(terminalMsg.getChannel(), bs);
+    	byte[] bs = msgEncoder.encode4ConfigResp(versionMsg, new RespMsgBody((byte) replyResult));
+    	super.send2Terminal(versionMsg.getChannel(), bs);
     }
     
     //处理指令业务，这里是处理终端返回的指令执行响应,不是下发指令

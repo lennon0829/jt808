@@ -42,7 +42,7 @@
 		  mac = '${terminalInfo.mac}' 
 	</update>
 
-	<update id="selectConfigByKey" resultType="com.zhtkj.jt808.entity.Config">
+	<select id="selectConfigByKey" resultType="com.zhtkj.jt808.entity.Config">
 		select
 		  mac,
 		  car_number carNumber,
@@ -56,6 +56,6 @@
 		  report_time reportTime
 		where
 		  mac = '${mac}' 
-	</update>
+	</select>
 
 </mapper>

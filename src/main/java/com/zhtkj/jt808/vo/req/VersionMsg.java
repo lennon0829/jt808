@@ -2,33 +2,33 @@ package com.zhtkj.jt808.vo.req;
 
 import com.zhtkj.jt808.vo.PackageData;
 
-public class TerminalMsg extends PackageData {
+public class VersionMsg extends PackageData {
 
 	/**
-	 * @Fields terminalInfo : 终端信息
+	 * @Fields versionInfo : 终端版本信息
 	 */
-	private TerminalInfo terminalInfo;
+	private VersionInfo versionInfo;
 	
-	public TerminalMsg() {
+	public VersionMsg() {
 		
 	}
 	
-	public TerminalMsg(PackageData packageData) {
+	public VersionMsg(PackageData packageData) {
 		this();
 		this.channel = packageData.getChannel();
 		this.msgHeader = packageData.getMsgHeader();
 		this.msgBody = packageData.getMsgBody();
 	}
 	
-	public TerminalInfo getTerminalInfo() {
-		return terminalInfo;
+	public VersionInfo getVersionInfo() {
+		return versionInfo;
 	}
 
-	public void setTerminalInfo(TerminalInfo terminalInfo) {
-		this.terminalInfo = terminalInfo;
+	public void setVersionInfo(VersionInfo versionInfo) {
+		this.versionInfo = versionInfo;
 	}
 
-	public static class TerminalInfo {
+	public static class VersionInfo {
 		
 		private String mac;
 		private String carNumber;

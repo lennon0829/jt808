@@ -13,7 +13,7 @@ import com.zhtkj.jt808.util.DigitUtil;
 import com.zhtkj.jt808.vo.PackageData;
 import com.zhtkj.jt808.vo.req.EventMsg;
 import com.zhtkj.jt808.vo.req.LocationMsg;
-import com.zhtkj.jt808.vo.req.TerminalMsg;
+import com.zhtkj.jt808.vo.req.VersionMsg;
 import com.zhtkj.jt808.vo.resp.RespMsgBody;
 
 @Component
@@ -112,7 +112,7 @@ public class MsgEncoder {
 	}
 	
 	//生成终端信息上报响应包
-	public byte[] encode4TerminalConfigResp(TerminalMsg msg, RespMsgBody respMsgBody) {
+	public byte[] encode4ConfigResp(VersionMsg msg, RespMsgBody respMsgBody) {
 		byte[] bodybs = this.encode4RespBody(JT808Const.TASK_BODY_ID_CONFIG, respMsgBody.getReplyResult());
 		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHeader().getTerminalPhone(), bodybs);
 		return msgbs;
