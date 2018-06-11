@@ -22,7 +22,7 @@ public class DigitUtil {
     }
     
     public static int byte2ToInt(byte[] src) {
-    	int targets = ((src[0] << 8) & 0xff00) | (src[1] & 0xff);
+    	int targets = (src[1] & 0xff) | ((src[0] << 8) & 0xff00);
         return targets;
     }
     
