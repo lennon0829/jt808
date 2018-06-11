@@ -18,6 +18,10 @@ import com.zhtkj.jt808.vo.req.LocationMsg;
 import com.zhtkj.jt808.vo.req.VersionMsg;
 import com.zhtkj.jt808.vo.resp.RespMsgBody;
 
+/**
+ * ClassName: MsgEncoder 
+ * @Description: 消息编码器
+ */
 @Component
 @Scope("prototype")
 public class MsgEncoder {

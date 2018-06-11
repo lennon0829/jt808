@@ -21,6 +21,10 @@ import com.zhtkj.jt808.vo.req.LocationMsg.LocationInfo;
 import com.zhtkj.jt808.vo.req.VersionMsg;
 import com.zhtkj.jt808.vo.req.VersionMsg.VersionInfo;
 
+/**
+ * ClassName: MsgDecoder 
+ * @Description: 消息解码器
+ */
 @Component
 @Scope("prototype")
 public class MsgDecoder {
@@ -49,9 +53,9 @@ public class MsgDecoder {
         for (int i = 0; i < listbs.size(); i++) {
         	newbs[i] = listbs.get(i);
         }
-		//开始转成业务消息对象
+		//将反转义后的byte[]转成业务对象
 		PackageData pkg = new PackageData();
-		MsgHead msgHead = this.parseMsgHeaderFromBytes(newbs);
+		MsgHead msgHead = this.parseMsgHeadFromBytes(newbs);
 		pkg.setMsgHead(msgHead);
 		byte[] bodybs = DigitUtil.sliceBytes(newbs, 11, 11 + msgHead.getMsgBodyLength() - 1);
 		MsgBody msgBody = this.parseMsgBodyFromBytes(bodybs);
@@ -60,7 +64,7 @@ public class MsgDecoder {
 	}
 	
 	//解码消息头
-	private MsgHead parseMsgHeaderFromBytes(byte[] data) {
+	private MsgHead parseMsgHeadFromBytes(byte[] data) {
 		MsgHead msgHead = new MsgHead();
 		msgHead.setMsgHeadId(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 0, 1)));
     	boolean hasSubPack = ((byte) ((data[2] >> 5) & 0x1) == 1) ? true : false;

@@ -11,7 +11,6 @@ import com.zhtkj.jt808.server.SessionManager;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
 
 public class BaseMsgProcessService {
 
@@ -24,7 +23,7 @@ public class BaseMsgProcessService {
 	}
 
 	public void send2Terminal(Channel channel, byte[] array) throws InterruptedException {
-		//反转义数据包
+		//转义数据包
         List<Byte> list = new ArrayList<Byte>();
         list.add((byte)JT808Const.MSG_DELIMITER);
         for (int i = 1; i < array.length - 1; i++){
@@ -43,11 +42,8 @@ public class BaseMsgProcessService {
         for (int i = 0; i < list.size(); i++) {
         	bs[i] = list.get(i);
         }
-        //发送给终端
-		ChannelFuture future = channel.writeAndFlush(Unpooled.copiedBuffer(bs)).sync();
-		if (!future.isSuccess()) {
-			logger.error("发送数据出错:{}", future.cause());
-		}
+        //将转义后的byte[]发送给终端
+		channel.writeAndFlush(Unpooled.copiedBuffer(bs)).sync();
 	}
 
 }
