@@ -169,7 +169,7 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     	long serialId = msgBody.getSerialId();
     	//如果流水号很大则是事件抓拍，否则就是指令抓拍
     	if (serialId > 888888) {
-    		//这里好像没什么用吧
+    		//这里好像没什么用
     	} else {
     		//保存图片到服务器
 			File file = new File(JT808Const.IMAGE_SAVE_PATH + serialId + ".jpg");
