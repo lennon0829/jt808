@@ -3,17 +3,17 @@
 <mapper namespace="com.zhtkj.jt808.mapper.DataActionMapper">
 	
 	<update id="updateActionDealResult">
-		UPDATE zt_data_action
-		SET deal_result = '${msgBody.result}',
+		update zt_data_action
+		set deal_result = '${msgBody.result}',
 		  deal_time = now()
-		WHERE
+		where
 		  action_id = '${msgBody.serialId}' 
 	</update>
 
 	<update id="updateActionReceiveResult">
-		UPDATE zt_data_action
-		SET receive_result = '${receiveResult}'
-		WHERE
+		update zt_data_action
+		set receive_result = '${receiveResult}'
+		where
 		  action_id = '${actionId}' 
 	</update>
 	

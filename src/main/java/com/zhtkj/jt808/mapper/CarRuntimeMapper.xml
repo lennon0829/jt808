@@ -51,26 +51,26 @@
 	</insert>
 	
 	<update id="updateCarRuntime">
-		UPDATE zt_car_runtime
-		SET car_number = '${locationInfo.carNumber}',
-		 ip_address = '${locationInfo.remoteAddress}',
-		 gps_pos_x = '${locationInfo.gpsPosX}',
-		 gps_pos_y = '${locationInfo.gpsPosY}',
-		 gps_speed = '${locationInfo.gpsSpeed}',
-		 gps_height = '${locationInfo.gpsHeight}',
-		 gps_direct = '${locationInfo.gpsDirect}',
-		 gps_valid = 1,
-		 box_up = '${locationInfo.boxUp}',
-		 box_empty = '${locationInfo.boxEmpty}',
-		 box_close = '${locationInfo.boxClose}',
-		 car_passport = '${locationInfo.workPassport}',
-		 car_state = '${locationInfo.carState}',
-		 car_weigui = '${locationInfo.carWeigui}',
-		 send_datetime = '${locationInfo.sendDatetime}',
-		 driver_id = '${locationInfo.driverId}',
-		 revice_datetime = now(),
-		 online_state = 1
-		WHERE
+		update zt_car_runtime
+		set car_number = '${locationInfo.carNumber}',
+		  ip_address = '${locationInfo.remoteAddress}',
+		  gps_pos_x = '${locationInfo.gpsPosX}',
+		  gps_pos_y = '${locationInfo.gpsPosY}',
+		  gps_speed = '${locationInfo.gpsSpeed}',
+		  gps_height = '${locationInfo.gpsHeight}',
+		  gps_direct = '${locationInfo.gpsDirect}',
+		  gps_valid = 1,
+		  box_up = '${locationInfo.boxUp}',
+		  box_empty = '${locationInfo.boxEmpty}',
+		  box_close = '${locationInfo.boxClose}',
+		  car_passport = '${locationInfo.workPassport}',
+		  car_state = '${locationInfo.carState}',
+		  car_weigui = '${locationInfo.carWeigui}',
+		  send_datetime = '${locationInfo.sendDatetime}',
+		  driver_id = '${locationInfo.driverId}',
+		  revice_datetime = now(),
+		  online_state = 1
+		where
 			dev_phone = '${locationInfo.devPhone}' 
 	</update>
 

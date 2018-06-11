@@ -57,7 +57,8 @@
 		from
 		  zt_config
 		where
-		  mac = '${mac}' 
+		  mac = '${mac}'
+		limit 1
 	</select>
 
 </mapper>
