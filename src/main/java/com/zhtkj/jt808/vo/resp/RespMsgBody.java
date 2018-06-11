@@ -4,7 +4,6 @@ package com.zhtkj.jt808.vo.resp;
  * ClassName: RespMsgBody 
  * @Description: 通用响应
  */
- 
 public class RespMsgBody {
 
 	//响应结果
