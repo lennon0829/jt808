@@ -87,7 +87,8 @@
 		set offline_datetime = now(),
 		  online_state = 0
 		where
-		  revice_datetime &lt;= '${idleTime}' 
+		  revice_datetime &lt;= '${idleTime}'
+		  and online_state = 1
 	</update>
 	
 	<select id="findCarPassword" resultType="com.zhtkj.jt808.entity.CarRuntime">
