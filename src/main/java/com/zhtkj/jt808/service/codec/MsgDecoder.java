@@ -131,13 +131,13 @@ public class MsgDecoder {
         //处理核准证ID
         locationInfo.setWorkPassport(new String(DigitUtil.sliceBytes(msgBodyBytes, 42, 51)));
         //处理车厢状态
-        locationInfo.setBoxClose(DigitUtil.byteToInt(msgBodyBytes[52]));
+        locationInfo.setBoxClose(msgBodyBytes[52]);
         //处理举升状态
-        locationInfo.setBoxUp(DigitUtil.byteToInt(msgBodyBytes[53]));
+        locationInfo.setBoxUp(msgBodyBytes[53]);
         //处理空重状态
-        locationInfo.setBoxEmpty(DigitUtil.byteToInt(msgBodyBytes[54]));
+        locationInfo.setBoxEmpty(msgBodyBytes[54]);
         //处理违规情况
-        locationInfo.setCarWeigui(DigitUtil.byteToInt(msgBodyBytes[55]));
+        locationInfo.setCarWeigui(msgBodyBytes[55]);
         locationMsg.setLocationInfo(locationInfo);
 		return locationMsg;
 	}
@@ -152,7 +152,7 @@ public class MsgDecoder {
         long eventSerialId = DigitUtil.byte4ToInt(DigitUtil.sliceBytes(msgBodyBytes, 2, 5), 0);
         eventInfo.setEventSerialId(eventSerialId);
         //处理事件类型
-        eventInfo.setEventType(DigitUtil.byteToInt(msgBodyBytes[6]));
+        eventInfo.setEventType((int) msgBodyBytes[6]);
         
         //开始处理位置信息
         byte[] locationbs = DigitUtil.sliceBytes(msgBodyBytes, 3, msgBodyBytes.length - 1);
@@ -194,13 +194,13 @@ public class MsgDecoder {
         //处理核准证ID
         locationInfo.setWorkPassport(new String(DigitUtil.sliceBytes(locationbs, 42, 51)));
         //处理车厢状态
-        locationInfo.setBoxClose(DigitUtil.byteToInt(locationbs[52]));
+        locationInfo.setBoxClose(locationbs[52]);
         //处理举升状态
-        locationInfo.setBoxUp(DigitUtil.byteToInt(locationbs[53]));
+        locationInfo.setBoxUp(locationbs[53]);
         //处理空重状态
-        locationInfo.setBoxEmpty(DigitUtil.byteToInt(locationbs[54]));
+        locationInfo.setBoxEmpty(locationbs[54]);
         //处理违规情况
-        locationInfo.setCarWeigui(DigitUtil.byteToInt(locationbs[55]));
+        locationInfo.setCarWeigui(locationbs[55]);
         eventInfo.setLocationInfo(locationInfo);
         eventMsg.setEventInfo(eventInfo);
 		return eventMsg;

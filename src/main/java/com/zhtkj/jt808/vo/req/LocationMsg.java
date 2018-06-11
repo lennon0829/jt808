@@ -36,36 +36,21 @@ public class LocationMsg extends PackageData {
 	public static class LocationInfo {
 		
 		private String carNumber; //车牌号码
-		
 		private String devPhone; //终端sim
-		
 		private String remoteAddress; //终端ip地址
-		
 		private String carState; //车辆状态
-		
 		private float gpsPosX; //经度
-		
 		private float gpsPosY; //纬度
-		
 		private float gpsHeight; //高程
-		
 		private float gpsSpeed; //速度
-		
 		private float gpsDirect; //方向
-		
 		private String sendDatetime; //时间(设备时间)
-		
 		private String driverId; //司机ID
-		
 		private String workPassport; //核准证
-		
-		private int boxClose; //车厢状态，1：关闭；2：打开
-		
-		private int boxUp; //举升状态，1：平放；2：举升；3：完全举升
-		
-		private int boxEmpty; //空重状态，1：空车；2：重车
-		
-		private int carWeigui; //违规情况，1：违规；0：未违规
+		private byte boxClose; //车厢状态，1：关闭；2：打开
+		private byte boxUp; //举升状态，1：平放；2：举升；3：完全举升
+		private byte boxEmpty; //空重状态，1：空车；2：重车
+		private byte carWeigui; //违规情况，1：违规；0：未违规
 
 		
 		public String getDevPhone() {
@@ -100,66 +85,53 @@ public class LocationMsg extends PackageData {
 			this.gpsPosX = gpsPosX;
 		}
 
-		
 		public float getGpsPosY() {
 			return gpsPosY;
 		}
-
 		
 		public void setGpsPosY(float gpsPosY) {
 			this.gpsPosY = gpsPosY;
 		}
 
-		
 		public float getGpsHeight() {
 			return gpsHeight;
 		}
-
 		
 		public void setGpsHeight(float gpsHeight) {
 			this.gpsHeight = gpsHeight;
 		}
 
-		
 		public float getGpsSpeed() {
 			return gpsSpeed;
 		}
-
 		
 		public void setGpsSpeed(float gpsSpeed) {
 			this.gpsSpeed = gpsSpeed;
 		}
 
-		
 		public float getGpsDirect() {
 			return gpsDirect;
 		}
-
 		
 		public void setGpsDirect(float gpsDirect) {
 			this.gpsDirect = gpsDirect;
 		}
 
-		
 		public String getSendDatetime() {
 			return sendDatetime;
 		}
 
-		
 		public void setSendDatetime(String sendDatetime) {
 			this.sendDatetime = sendDatetime;
 		}
-
 		
 		public String getCarNumber() {
 			return carNumber;
 		}
 
-		
 		public void setCarNumber(String carNumber) {
 			this.carNumber = carNumber;
 		}
-
 		
 		public String getDriverId() {
 			return driverId;
@@ -177,42 +149,35 @@ public class LocationMsg extends PackageData {
 			this.workPassport = workPassport;
 		}
 
-		public int getBoxClose() {
+		public byte getBoxClose() {
 			return boxClose;
 		}
 
-		
-		public void setBoxClose(int boxClose) {
+		public void setBoxClose(byte boxClose) {
 			this.boxClose = boxClose;
 		}
-
 		
-		public int getBoxUp() {
+		public byte getBoxUp() {
 			return boxUp;
 		}
 
-		
-		public void setBoxUp(int boxUp) {
+		public void setBoxUp(byte boxUp) {
 			this.boxUp = boxUp;
 		}
 
-		
-		public int getBoxEmpty() {
+		public byte getBoxEmpty() {
 			return boxEmpty;
 		}
 
-		
-		public void setBoxEmpty(int boxEmpty) {
+		public void setBoxEmpty(byte boxEmpty) {
 			this.boxEmpty = boxEmpty;
 		}
-
 		
-		public int getCarWeigui() {
+		public byte getCarWeigui() {
 			return carWeigui;
 		}
-
 		
-		public void setCarWeigui(int carWeigui) {
+		public void setCarWeigui(byte carWeigui) {
 			this.carWeigui = carWeigui;
 		}
 

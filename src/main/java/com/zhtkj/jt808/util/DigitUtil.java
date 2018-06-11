@@ -2,6 +2,13 @@ package com.zhtkj.jt808.util;
 
 public class DigitUtil {
 
+    /**
+     * @Description: 截取byte数组
+     * @param src
+     * @param start
+     * @param end
+     * @return byte[]  
+     */
     public static byte[] sliceBytes(byte[] src, Integer start, Integer end) {  
         byte[] target = new byte[end - start + 1];
         for (int i = start; i <= end; i++) {
@@ -10,15 +17,16 @@ public class DigitUtil {
         return target;
     }
     
+    /**
+     * @Description: 将1byte转为2进制字符串
+     * @param b
+     * @return String  
+     */
     public static String byteToBinaryStr(byte b) {
         return "" + (byte) ((b >> 7) & 0x1) + (byte) ((b >> 6) & 0x1)
                   + (byte) ((b >> 5) & 0x1) + (byte) ((b >> 4) & 0x1)
                   + (byte) ((b >> 3) & 0x1) + (byte) ((b >> 2) & 0x1)
                   + (byte) ((b >> 1) & 0x1) + (byte) ((b >> 0) & 0x1);
-    }
-    
-    public static int byteToInt(byte b) {
-        return (int) b & 0xFF;
     }
     
     public static int byte2ToInt(byte[] src) {
