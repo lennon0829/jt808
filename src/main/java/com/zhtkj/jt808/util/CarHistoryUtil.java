@@ -9,7 +9,7 @@ import org.joda.time.DateTime;
 import com.zhtkj.jt808.vo.req.LocationMsg.LocationInfo;
 
 /** 
-* @ClassName: CarHistoryFilter 
+* @ClassName: CarHistoryUtil 
 * @Description: 过滤历史数据，主要是过滤白天的历史数据 
 */
 public class CarHistoryUtil {

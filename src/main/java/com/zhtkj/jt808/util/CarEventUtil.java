@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 import com.zhtkj.jt808.vo.req.EventMsg.EventInfo;
 
 /** 
-* @ClassName: CarEventDataFilter 
+* @ClassName: CarEventUtil 
 * @Description: 每种类型的事件只能在相隔一定的时间后才能上报
 */
 public class CarEventUtil {
