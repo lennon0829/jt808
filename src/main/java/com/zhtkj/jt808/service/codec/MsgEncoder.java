@@ -124,7 +124,7 @@ public class MsgEncoder {
 	public byte[] encode4ConfigResp(ConfigMsg msg, Config config) throws UnsupportedEncodingException {
     	byte[] typebs = DigitUtil.shortTo2Byte((short) JT808Const.TASK_BODY_ID_CONFIG);
         byte[] msgserialbs = DigitUtil.int32To4Byte(msg.getMsgHeader().getMsgSerial());
-		byte[] macbs = config.getMac().getBytes("");
+		byte[] macbs = config.getMac().getBytes();
 		byte[] configbs = (config.getCarNumber() + "," + config.getDevPhone() + "," 
 				+ config.getVersion() + "," + config.getEcuType() + "," + config.getCarType()).getBytes();
 		byte[] bodybs = ArrayUtil.concatAll(typebs, msgserialbs, macbs, configbs);

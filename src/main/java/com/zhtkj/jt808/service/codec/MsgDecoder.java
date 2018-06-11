@@ -65,6 +65,7 @@ public class MsgDecoder {
     	String bodyLen = DigitUtil.byteToBinaryStr(data[1], 1, 0) + DigitUtil.byteToBinaryStr(data[2], 7, 0);
     	msgHeader.setMsgBodyLength(Integer.parseInt(bodyLen, 2));;
     	msgHeader.setTerminalPhone(new String(DigitUtil.bcdToStr(DigitUtil.sliceBytes(data, 3, 8))));
+    	msgHeader.setMsgSerial(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 9, 10)));
     	return msgHeader;
 	}
 	
