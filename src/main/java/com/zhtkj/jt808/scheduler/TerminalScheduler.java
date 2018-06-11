@@ -25,11 +25,11 @@ public class TerminalScheduler {
 	public void removeIdleSession() {
 		Iterator<Entry<String, Session>> iterator = 
 				SessionManager.getInstance().getSessionMap().entrySet().iterator();
-		DateTime now = DateTime.now();
+		DateTime idleTime = DateTime.now().minusMinutes(6);
 		while (iterator.hasNext()) {
 			Session session = iterator.next().getValue();
 			DateTime lastCommunicateTime = session.getLastCommunicateTime();
-			if (lastCommunicateTime == null || lastCommunicateTime.plusMinutes(6).isBefore(now)) {
+			if (lastCommunicateTime == null || lastCommunicateTime.isBefore(idleTime)) {
 				Channel channel = session.getChannel();
 				if (channel.isOpen()) {
 					channel.close();
@@ -37,8 +37,7 @@ public class TerminalScheduler {
 				iterator.remove();
 			}
 		}
-		String idleTime = DateTime.now().minusMinutes(6).toString("yyyy-MM-dd HH:mm:ss");
-		carRuntimeMapper.setCarOfflineState(idleTime);
+		carRuntimeMapper.setCarOfflineState(idleTime.toString("yyyy-MM-dd HH:mm:ss"));
 	}
 	
 }
