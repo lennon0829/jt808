@@ -80,11 +80,14 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     		carHistoryMapper.insertCarHistory(DateTime.now().toString("M"), locationInfo);
     	}
     	Session session = sessionManager.findSessionByKey(msg.getMsgHead().getTerminalPhone());
-    	if (session != null) {
+    	//如果session等于null则证明终端没有先发送登录包过来，需要主动断开该连接
+    	if (session == null) {
+    		msg.getChannel().close();
+    	} else {
     		session.setLastCommunicateTime(DateTime.now());
+            byte[] bs = this.msgEncoder.encode4LocationResp(msg, new RespMsgBody((byte) 1));
+            super.send2Terminal(msg.getChannel(), bs);
     	}
-        byte[] bs = this.msgEncoder.encode4LocationResp(msg, new RespMsgBody((byte) 1));
-        super.send2Terminal(msg.getChannel(), bs);
     }
     
     //处理事件业务
