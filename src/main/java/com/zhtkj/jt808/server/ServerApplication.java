@@ -114,9 +114,9 @@ public class ServerApplication {
 	public static void main(String[] args) throws Exception {
 		//初始化spring容器
         appCtx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        
         //初始化netty
-		ServerApplication server = new ServerApplication(6666);
-		server.startServer();
+		new ServerApplication(6666).startServer();
 		
 		//初始化窗口，这个窗口只是用来展示服务端是否启动，没有其他作用
 		JFrame frame = new JFrame();  
