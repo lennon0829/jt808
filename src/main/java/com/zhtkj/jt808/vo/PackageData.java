@@ -38,6 +38,8 @@ public class PackageData {
 
 	    protected int msgId;
 	    
+	    protected int msgSerial;
+	    
 	    protected int msgBodyLength;
 	    
 	    protected int encryptType;
@@ -56,6 +58,14 @@ public class PackageData {
 
 		public int getMsgBodyLength() {
 			return msgBodyLength;
+		}
+		
+		public int getMsgSerial() {
+			return msgSerial;
+		}
+
+		public void setMsgSerial(int msgSerial) {
+			this.msgSerial = msgSerial;
 		}
 
 		public void setMsgBodyLength(int msgBodyLength) {

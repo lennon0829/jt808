@@ -6,11 +6,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.zhtkj.jt808.common.JT808Const;
+import com.zhtkj.jt808.entity.Config;
 import com.zhtkj.jt808.entity.DataAction;
 import com.zhtkj.jt808.entity.DataParam;
 import com.zhtkj.jt808.util.ArrayUtil;
 import com.zhtkj.jt808.util.DigitUtil;
 import com.zhtkj.jt808.vo.PackageData;
+import com.zhtkj.jt808.vo.req.ConfigMsg;
 import com.zhtkj.jt808.vo.req.EventMsg;
 import com.zhtkj.jt808.vo.req.LocationMsg;
 import com.zhtkj.jt808.vo.req.VersionMsg;
@@ -111,9 +113,21 @@ public class MsgEncoder {
 		return msgbs;
 	}
 	
-	//生成终端信息上报响应包
-	public byte[] encode4ConfigResp(VersionMsg msg, RespMsgBody respMsgBody) {
-		byte[] bodybs = this.encode4RespBody(JT808Const.TASK_BODY_ID_CONFIG, respMsgBody.getReplyResult());
+	//生成终端版本信息上报响应包
+	public byte[] encode4VersionResp(VersionMsg msg, RespMsgBody respMsgBody) {
+		byte[] bodybs = this.encode4RespBody(JT808Const.TASK_BODY_ID_VERSION, respMsgBody.getReplyResult());
+		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHeader().getTerminalPhone(), bodybs);
+		return msgbs;
+	}
+	
+	//生成终端配置信息上报响应包
+	public byte[] encode4ConfigResp(ConfigMsg msg, Config config) throws UnsupportedEncodingException {
+    	byte[] typebs = DigitUtil.shortTo2Byte((short) JT808Const.TASK_BODY_ID_CONFIG);
+        byte[] msgserialbs = DigitUtil.int32To4Byte(msg.getMsgHeader().getMsgSerial());
+		byte[] macbs = config.getMac().getBytes("");
+		byte[] configbs = (config.getCarNumber() + "," + config.getDevPhone() + "," 
+				+ config.getVersion() + "," + config.getEcuType() + "," + config.getCarType()).getBytes();
+		byte[] bodybs = ArrayUtil.concatAll(typebs, msgserialbs, macbs, configbs);
 		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHeader().getTerminalPhone(), bodybs);
 		return msgbs;
 	}

@@ -3,6 +3,7 @@ package com.zhtkj.jt808.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import com.zhtkj.jt808.util.CarHistoryUtil;
 import com.zhtkj.jt808.vo.PackageData;
 import com.zhtkj.jt808.vo.PackageData.MsgBody;
 import com.zhtkj.jt808.vo.Session;
+import com.zhtkj.jt808.vo.req.ConfigMsg;
+import com.zhtkj.jt808.vo.req.ConfigMsg.ConfigInfo;
 import com.zhtkj.jt808.vo.req.EventMsg;
 import com.zhtkj.jt808.vo.req.EventMsg.EventInfo;
 import com.zhtkj.jt808.vo.req.LocationMsg;
@@ -136,8 +139,19 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     	} else {
     		replyResult = 0;
     	}
-    	byte[] bs = msgEncoder.encode4ConfigResp(versionMsg, new RespMsgBody((byte) replyResult));
+    	byte[] bs = msgEncoder.encode4VersionResp(versionMsg, new RespMsgBody((byte) replyResult));
     	super.send2Terminal(versionMsg.getChannel(), bs);
+    }
+    
+    //处理终端配置更新业务
+    public void processConfigMsg(ConfigMsg configMsg) throws Exception {
+    	ConfigInfo configInfo = configMsg.getConfigInfo();
+    	List<Config> configs = configMapper.selectConfigByKey(configInfo.getMac());
+    	if (configs.size() > 0) {
+    		Config config = configs.get(0);
+        	byte[] bs = msgEncoder.encode4ConfigResp(configMsg, config);
+        	super.send2Terminal(configMsg.getChannel(), bs);
+    	}
     }
     
     //处理指令业务，这里是处理终端返回的指令执行响应,不是下发指令

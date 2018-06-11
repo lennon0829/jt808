@@ -12,6 +12,8 @@ import com.zhtkj.jt808.util.DigitUtil;
 import com.zhtkj.jt808.vo.PackageData;
 import com.zhtkj.jt808.vo.PackageData.MsgBody;
 import com.zhtkj.jt808.vo.PackageData.MsgHeader;
+import com.zhtkj.jt808.vo.req.ConfigMsg;
+import com.zhtkj.jt808.vo.req.ConfigMsg.ConfigInfo;
 import com.zhtkj.jt808.vo.req.EventMsg;
 import com.zhtkj.jt808.vo.req.EventMsg.EventInfo;
 import com.zhtkj.jt808.vo.req.LocationMsg;
@@ -201,18 +203,34 @@ public class MsgDecoder {
 		byte[] bodybs = packageData.getMsgBody().getMsgBodyBytes();
     	Integer ecuType = (int) bodybs[8];
     	Integer carType = (int) bodybs[9];
-    	byte[] carinfobs = new byte[bodybs.length - 10];
+    	byte[] terminalinfobs = new byte[bodybs.length - 10];
     	for (int i = 0; i < bodybs.length - 10; i++) {
-    		carinfobs[i] = bodybs[i + 10];
+    		terminalinfobs[i] = bodybs[i + 10];
     	}
-    	String[] carInfo = new String(carinfobs, "utf8").split(",");
-    	versionInfo.setMac(carInfo[0]);
-    	versionInfo.setCarNumber(carInfo[1]);
+    	String[] terminalInfo = new String(terminalinfobs, "utf8").split(",");
+    	versionInfo.setMac(terminalInfo[0]);
+    	versionInfo.setCarNumber(terminalInfo[1]);
     	versionInfo.setDevPhone(packageData.getMsgHeader().getTerminalPhone());
-    	versionInfo.setVersion(carInfo[2]);
+    	versionInfo.setVersion(terminalInfo[2]);
     	versionInfo.setEcuType(ecuType.toString());
     	versionInfo.setCarType(carType.toString());
     	versionMsg.setVersionInfo(versionInfo);
     	return versionMsg;
 	}
+	
+	//解码终端配置更新信息
+	public ConfigMsg toConfigMsg(PackageData packageData) throws UnsupportedEncodingException {
+		ConfigMsg configMsg = new ConfigMsg(packageData);
+		ConfigInfo configInfo = new ConfigInfo();
+		byte[] bodybs = packageData.getMsgBody().getMsgBodyBytes();
+    	byte[] macbs = new byte[17];
+    	for (int i = 0; i < 17; i++) {
+    		macbs[i] = bodybs[i + 12]; 
+    	}
+    	String mac = new String(macbs);
+    	configInfo.setMac(mac);
+    	configMsg.setConfigInfo(configInfo);
+    	return configMsg;
+	}
+	
 }
