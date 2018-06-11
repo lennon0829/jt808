@@ -4,18 +4,17 @@ import io.netty.channel.Channel;
 
 public class PackageData {
 
-	protected MsgHeader msgHeader;
-
+	protected MsgHead msgHead;
 	protected MsgBody msgBody;
-
 	protected Channel channel;
 
-	public MsgHeader getMsgHeader() {
-		return msgHeader;
-	}
 
-	public void setMsgHeader(MsgHeader msgHeader) {
-		this.msgHeader = msgHeader;
+	public MsgHead getMsgHead() {
+		return msgHead;
+	}
+	
+	public void setMsgHead(MsgHead msgHead) {
+		this.msgHead = msgHead;
 	}
 
 	public MsgBody getMsgBody() {
@@ -34,7 +33,7 @@ public class PackageData {
 		this.channel = channel;
 	}
 
-	public static class MsgHeader {
+	public static class MsgHead {
 
 	    protected int msgId;
 	    

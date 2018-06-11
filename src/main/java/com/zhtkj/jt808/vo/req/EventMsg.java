@@ -14,7 +14,7 @@ public class EventMsg extends PackageData {
 	public EventMsg(PackageData packageData) {
 		this();
 		this.channel = packageData.getChannel();
-		this.msgHeader = packageData.getMsgHeader();
+		this.msgHead = packageData.getMsgHead();
 		this.msgBody = packageData.getMsgBody();
 	}
 	

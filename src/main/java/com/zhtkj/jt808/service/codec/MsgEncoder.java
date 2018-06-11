@@ -95,40 +95,40 @@ public class MsgEncoder {
 	//生成登录响应包
 	public byte[] encode4LoginResp(PackageData packageData, RespMsgBody respMsgBody) {
 		byte[] bodybs = this.encode4RespBody(JT808Const.TASK_BODY_ID_LOGIN, respMsgBody.getReplyResult());
-		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, packageData.getMsgHeader().getTerminalPhone(), bodybs);
+		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, packageData.getMsgHead().getTerminalPhone(), bodybs);
 		return msgbs;
 	}
 	
 	//生成登录响应包
 	public byte[] encode4LocationResp(LocationMsg msg, RespMsgBody respMsgBody) {
 		byte[] bodybs = this.encode4RespBody(JT808Const.TASK_BODY_ID_GPS, respMsgBody.getReplyResult());
-		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHeader().getTerminalPhone(), bodybs);
+		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHead().getTerminalPhone(), bodybs);
 		return msgbs;
 	}
 	
 	//生成事件响应包
 	public byte[] encode4EventResp(EventMsg msg, RespMsgBody respMsgBody) {
 		byte[] bodybs = this.encode4RespBody(JT808Const.TASK_BODY_ID_EVENT, respMsgBody.getReplyResult());
-		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHeader().getTerminalPhone(), bodybs);
+		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHead().getTerminalPhone(), bodybs);
 		return msgbs;
 	}
 	
 	//生成终端版本信息上报响应包
 	public byte[] encode4VersionResp(VersionMsg msg, RespMsgBody respMsgBody) {
 		byte[] bodybs = this.encode4RespBody(JT808Const.TASK_BODY_ID_VERSION, respMsgBody.getReplyResult());
-		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHeader().getTerminalPhone(), bodybs);
+		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHead().getTerminalPhone(), bodybs);
 		return msgbs;
 	}
 	
 	//生成终端配置信息上报响应包
 	public byte[] encode4ConfigResp(ConfigMsg msg, Config config) throws UnsupportedEncodingException {
     	byte[] typebs = DigitUtil.shortTo2Byte((short) JT808Const.TASK_BODY_ID_CONFIG);
-        byte[] msgserialbs = DigitUtil.int32To4Byte(msg.getMsgHeader().getMsgSerial());
+        byte[] msgserialbs = DigitUtil.int32To4Byte(msg.getMsgHead().getMsgSerial());
 		byte[] macbs = config.getMac().getBytes();
 		byte[] configbs = (config.getCarNumber() + "," + config.getDevPhone() + "," 
 				+ config.getVersion() + "," + config.getEcuType() + "," + config.getCarType()).getBytes();
 		byte[] bodybs = ArrayUtil.concatAll(typebs, msgserialbs, macbs, configbs);
-		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHeader().getTerminalPhone(), bodybs);
+		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHead().getTerminalPhone(), bodybs);
 		return msgbs;
 	}
 	

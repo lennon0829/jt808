@@ -62,7 +62,7 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     //处理终端登录业务
     public void processLoginMsg(PackageData packageData) throws Exception {
         byte[] bs = this.msgEncoder.encode4LoginResp(packageData, new RespMsgBody((byte) 1));
-        String terminalPhone = packageData.getMsgHeader().getTerminalPhone();
+        String terminalPhone = packageData.getMsgHead().getTerminalPhone();
         Session session = new Session(terminalPhone, packageData.getChannel());
         sessionManager.addSession(terminalPhone, session);
         carRuntimeMapper.setCarOnlineState(terminalPhone);
@@ -79,7 +79,7 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     	if (CarHistoryUtil.isPersistent(locationInfo)) {
     		carHistoryMapper.insertCarHistory(DateTime.now().toString("M"), locationInfo);
     	}
-    	Session session = sessionManager.findSessionByKey(msg.getMsgHeader().getTerminalPhone());
+    	Session session = sessionManager.findSessionByKey(msg.getMsgHead().getTerminalPhone());
     	if (session != null) {
     		session.setLastCommunicateTime(DateTime.now());
     	}
@@ -98,7 +98,7 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     
     //处理自检信息业务
     public void processSelfCheckMsg(PackageData packageData) {
-    	carRuntimeMapper.setCarOnlineState(packageData.getMsgHeader().getTerminalPhone());
+    	carRuntimeMapper.setCarOnlineState(packageData.getMsgHead().getTerminalPhone());
     }
     
     //处理终端版本信息业务

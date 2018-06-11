@@ -11,7 +11,7 @@ import com.zhtkj.jt808.common.JT808Const;
 import com.zhtkj.jt808.util.DigitUtil;
 import com.zhtkj.jt808.vo.PackageData;
 import com.zhtkj.jt808.vo.PackageData.MsgBody;
-import com.zhtkj.jt808.vo.PackageData.MsgHeader;
+import com.zhtkj.jt808.vo.PackageData.MsgHead;
 import com.zhtkj.jt808.vo.req.ConfigMsg;
 import com.zhtkj.jt808.vo.req.ConfigMsg.ConfigInfo;
 import com.zhtkj.jt808.vo.req.EventMsg;
@@ -51,17 +51,17 @@ public class MsgDecoder {
         }
 		//开始转成业务消息对象
 		PackageData pkg = new PackageData();
-		MsgHeader msgHeader = this.parseMsgHeaderFromBytes(newbs);
-		pkg.setMsgHeader(msgHeader);
-		byte[] bodybs = DigitUtil.sliceBytes(newbs, 11, 11 + msgHeader.getMsgBodyLength() - 1);
+		MsgHead msgHead = this.parseMsgHeaderFromBytes(newbs);
+		pkg.setMsgHead(msgHead);
+		byte[] bodybs = DigitUtil.sliceBytes(newbs, 11, 11 + msgHead.getMsgBodyLength() - 1);
 		MsgBody msgBody = this.parseMsgBodyFromBytes(bodybs);
 		pkg.setMsgBody(msgBody);
 		return pkg;
 	}
 	
 	//解码消息头
-	private MsgHeader parseMsgHeaderFromBytes(byte[] data) {
-		MsgHeader msgHeader = new MsgHeader();
+	private MsgHead parseMsgHeaderFromBytes(byte[] data) {
+		MsgHead msgHeader = new MsgHead();
 		msgHeader.setMsgId(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 0, 1)));
     	boolean hasSubPack = ((byte) ((data[2] >> 5) & 0x1) == 1) ? true : false;
     	msgHeader.setHasSubPack(hasSubPack);
@@ -90,7 +90,7 @@ public class MsgDecoder {
 		LocationInfo locationInfo = new LocationInfo();
 		byte[] msgBodyBytes = locationMsg.getMsgBody().getMsgBodyBytes();
 		//设置终端手机号
-		locationInfo.setDevPhone(locationMsg.getMsgHeader().getTerminalPhone());
+		locationInfo.setDevPhone(locationMsg.getMsgHead().getTerminalPhone());
 		//设置终端地址
 		locationInfo.setRemoteAddress(locationMsg.getChannel().remoteAddress().toString());
 		//处理状态
@@ -153,7 +153,7 @@ public class MsgDecoder {
         //开始处理位置信息
         byte[] locationbs = DigitUtil.sliceBytes(msgBodyBytes, 3, msgBodyBytes.length - 1);
 		//设置终端sim
-		locationInfo.setDevPhone(eventMsg.getMsgHeader().getTerminalPhone());
+		locationInfo.setDevPhone(eventMsg.getMsgHead().getTerminalPhone());
 		//设置终端地址
 		locationInfo.setRemoteAddress(eventMsg.getChannel().remoteAddress().toString());
 		//处理状态
@@ -209,14 +209,14 @@ public class MsgDecoder {
 		byte[] bodybs = packageData.getMsgBody().getMsgBodyBytes();
     	Integer ecuType = (int) bodybs[8];
     	Integer carType = (int) bodybs[9];
-    	byte[] terminalinfobs = new byte[bodybs.length - 10];
+    	byte[] infobs = new byte[bodybs.length - 10];
     	for (int i = 0; i < bodybs.length - 10; i++) {
-    		terminalinfobs[i] = bodybs[i + 10];
+    		infobs[i] = bodybs[i + 10];
     	}
-    	String[] terminalInfo = new String(terminalinfobs, "utf8").split(",");
+    	String[] terminalInfo = new String(infobs, "utf8").split(",");
     	versionInfo.setMac(terminalInfo[0]);
     	versionInfo.setCarNumber(terminalInfo[1]);
-    	versionInfo.setDevPhone(packageData.getMsgHeader().getTerminalPhone());
+    	versionInfo.setDevPhone(packageData.getMsgHead().getTerminalPhone());
     	versionInfo.setVersion(terminalInfo[2]);
     	versionInfo.setEcuType(ecuType.toString());
     	versionInfo.setCarType(carType.toString());

@@ -16,7 +16,7 @@ public class VersionMsg extends PackageData {
 	public VersionMsg(PackageData packageData) {
 		this();
 		this.channel = packageData.getChannel();
-		this.msgHeader = packageData.getMsgHeader();
+		this.msgHead = packageData.getMsgHead();
 		this.msgBody = packageData.getMsgBody();
 	}
 	
