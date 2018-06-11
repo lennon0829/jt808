@@ -121,7 +121,7 @@ public class ServerMsgProcessService extends BaseMsgProcessService {
 				byte[] msgbs = msgEncoder.encode4Msg(JT808Const.PARAM_HEAD_ID, param.getPhoneNumber(), bodybs);
 				Channel channel = sessionManager.getChannelByKey(param.getPhoneNumber());
 				if (channel != null && channel.isOpen()) {
-					send2Terminal(channel, msgbs);
+					super.send2Terminal(channel, msgbs);
 					dataParamMapper.updateParamReceiveResult(param.getParamId(), 1);
 				} else {
 					dataParamMapper.updateParamReceiveResult(param.getParamId(), -1);
