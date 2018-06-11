@@ -149,8 +149,11 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     	List<Config> configs = configMapper.selectConfigByKey(configInfo.getMac());
     	if (configs.size() > 0) {
     		Config config = configs.get(0);
-        	byte[] bs = msgEncoder.encode4ConfigResp(configMsg, config);
-        	super.send2Terminal(configMsg.getChannel(), bs);
+    		//车辆信息中车牌号包含4412或者终端手机号码是17775754123时，不下发配置文件
+			if (!config.getCarNumber().contains("4412") && !config.getDevPhone().equals("17775754123")) {
+	        	byte[] bs = msgEncoder.encode4ConfigResp(configMsg, config);
+	        	super.send2Terminal(configMsg.getChannel(), bs);
+			}
     	}
     }
     

@@ -54,6 +54,8 @@
 		  update_tag updateTag,
 		  update_cfg_tag updateCfgTag,
 		  report_time reportTime
+		from
+		  zt_config
 		where
 		  mac = '${mac}' 
 	</select>
