@@ -17,13 +17,13 @@
 		)
 		values
 		  (
-		  	'${terminalInfo.mac}',
-		    '${terminalInfo.carNumber}',
-		    '${terminalInfo.devPhone}',
-		    '${terminalInfo.version}',
-		    '${terminalInfo.version}',
-		    '${terminalInfo.ecuType}',
-		    '${terminalInfo.carType}',
+		  	'${configInfo.mac}',
+		    '${configInfo.carNumber}',
+		    '${configInfo.devPhone}',
+		    '${configInfo.version}',
+		    '${configInfo.version}',
+		    '${configInfo.ecuType}',
+		    '${configInfo.carType}',
 		    0,
 		    0,
 		    now()
@@ -32,14 +32,14 @@
 	
 	<update id="updateConfig">
 		update zt_config
-		set car_number = '${terminalInfo.carNumber}',
-		  dev_phone = '${terminalInfo.devPhone}',
-		  version = '${terminalInfo.version}',
-		  ecu_type = '${terminalInfo.ecuType}',
-		  car_type = '${terminalInfo.carType}',
+		set car_number = '${configInfo.carNumber}',
+		  dev_phone = '${configInfo.devPhone}',
+		  version = '${configInfo.version}',
+		  ecu_type = '${configInfo.ecuType}',
+		  car_type = '${configInfo.carType}',
 		  report_time = now()
 		where
-		  mac = '${terminalInfo.mac}' 
+		  mac = '${configInfo.mac}' 
 	</update>
 
 	<select id="selectConfigByKey" resultType="com.zhtkj.jt808.entity.Config">
