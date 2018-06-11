@@ -148,7 +148,7 @@ public class MsgEncoder {
         msgTypebs = DigitUtil.shortTo2Byte((short) msgType);
         byte[] serialbs = new byte[4];
         serialbs = DigitUtil.intTo4Byte(action.getActionId());
-        byte[] valuebs = new byte[] {(byte)2,(byte)2,(byte)1,(byte)1,(byte)1,(byte)0,(byte)0};
+        byte[] valuebs = new byte[] {(byte)2, (byte)2, (byte)1, (byte)1, (byte)1, (byte)0, (byte)0};
 		return ArrayUtil.concatAll(msgTypebs, serialbs, valuebs);
 	}
 
