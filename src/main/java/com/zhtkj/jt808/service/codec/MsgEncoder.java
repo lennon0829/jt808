@@ -23,14 +23,14 @@ import com.zhtkj.jt808.vo.resp.RespMsgBody;
 public class MsgEncoder {
 
 	//编码整个消息包
-	public byte[] encode4Msg(int typeId, String terminalPhone, byte[] bodybs) {
+	public byte[] encode4Msg(int headId, String terminalPhone, byte[] bodybs) {
         //消息头
         byte[] headbs = new byte[13];
         headbs[0] = (byte) JT808Const.MSG_DELIMITER;
-        //标识Id
-        byte[] typeIdbs = DigitUtil.shortTo2Byte((short) typeId);
-        headbs[1] = typeIdbs[0];
-        headbs[2] = typeIdbs[1];
+        //消息头标识Id
+        byte[] headidbs = DigitUtil.shortTo2Byte((short) headId);
+        headbs[1] = headidbs[0];
+        headbs[2] = headidbs[1];
         //消息体属性
         //先获取消息体长度，并转成2个字节16位格式
         //808规范中用10bit表示长度，所以最大不能超过1024

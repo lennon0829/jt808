@@ -61,17 +61,17 @@ public class MsgDecoder {
 	
 	//解码消息头
 	private MsgHead parseMsgHeaderFromBytes(byte[] data) {
-		MsgHead msgHeader = new MsgHead();
-		msgHeader.setMsgId(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 0, 1)));
+		MsgHead msgHead = new MsgHead();
+		msgHead.setMsgHeadId(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 0, 1)));
     	boolean hasSubPack = ((byte) ((data[2] >> 5) & 0x1) == 1) ? true : false;
-    	msgHeader.setHasSubPack(hasSubPack);
+    	msgHead.setHasSubPack(hasSubPack);
     	int encryptType = ((byte) ((data[2] >> 2) & 0x1)) == 1 ? 1 : 0;
-    	msgHeader.setEncryptType(encryptType);
+    	msgHead.setEncryptType(encryptType);
     	String bodyLen = DigitUtil.byteToBinaryStr(data[1], 1, 0) + DigitUtil.byteToBinaryStr(data[2], 7, 0);
-    	msgHeader.setMsgBodyLength(Integer.parseInt(bodyLen, 2));;
-    	msgHeader.setTerminalPhone(new String(DigitUtil.bcdToStr(DigitUtil.sliceBytes(data, 3, 8))));
-    	msgHeader.setMsgSerial(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 9, 10)));
-    	return msgHeader;
+    	msgHead.setMsgBodyLength(Integer.parseInt(bodyLen, 2));;
+    	msgHead.setTerminalPhone(new String(DigitUtil.bcdToStr(DigitUtil.sliceBytes(data, 3, 8))));
+    	msgHead.setMsgSerial(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 9, 10)));
+    	return msgHead;
 	}
 	
 	//解码消息体

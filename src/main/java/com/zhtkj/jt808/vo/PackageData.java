@@ -35,7 +35,7 @@ public class PackageData {
 
 	public static class MsgHead {
 
-	    protected int msgId;
+	    protected int msgHeadId;
 	    
 	    protected int msgSerial;
 	    
@@ -47,12 +47,12 @@ public class PackageData {
 	    
 	    protected String terminalPhone;
 
-		public int getMsgId() {
-			return msgId;
+		public int getMsgHeadId() {
+			return msgHeadId;
 		}
 
-		public void setMsgId(int msgId) {
-			this.msgId = msgId;
+		public void setMsgHeadId(int msgHeadId) {
+			this.msgHeadId = msgHeadId;
 		}
 
 		public int getMsgBodyLength() {
