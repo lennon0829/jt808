@@ -39,17 +39,17 @@ public class DigitUtil {
     }
     
     public static long byte4ToInt(byte[] bs, int pos) {
-        int firstByte = 0;
-        int secondByte = 0;
-        int thirdByte = 0;
-        int fourthByte = 0;
+        int byte1 = 0;
+        int byte2 = 0;
+        int byte3 = 0;
+        int byte4 = 0;
         int index = pos;
-        firstByte = (0x000000FF & ((int) bs[index]));
-        secondByte = (0x000000FF & ((int) bs[index + 1]));
-        thirdByte = (0x000000FF & ((int) bs[index + 2]));
-        fourthByte = (0x000000FF & ((int) bs[index + 3]));
+        byte1 = (0x000000FF & ((int) bs[index]));
+        byte2 = (0x000000FF & ((int) bs[index + 1]));
+        byte3 = (0x000000FF & ((int) bs[index + 2]));
+        byte4 = (0x000000FF & ((int) bs[index + 3]));
         index = index + 4;
-        return ((long) (firstByte << 24 | secondByte << 16 | thirdByte << 8 | fourthByte)) & 0xFFFFFFFFL;
+        return ((long) (byte1 << 24 | byte2 << 16 | byte3 << 8 | byte4)) & 0xFFFFFFFFL;
     }
     
     public static String byteToBinaryStr(byte src, Integer high, Integer low) {
