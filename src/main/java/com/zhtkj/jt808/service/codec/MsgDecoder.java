@@ -25,6 +25,11 @@ import com.zhtkj.jt808.vo.req.VersionMsg.VersionInfo;
 @Scope("prototype")
 public class MsgDecoder {
 
+	/**
+	 * @Description: 将byte[]解码成业务对象
+	 * @param bs
+	 * @return PackageData  
+	 */
 	public PackageData bytes2PackageData(byte[] bs) {
 		//先把数据包反转义一下
 		List<Byte> listbs = new ArrayList<Byte>();
@@ -72,7 +77,7 @@ public class MsgDecoder {
 	//解码消息体
 	private MsgBody parseMsgBodyFromBytes(byte[] data) {
 		MsgBody msgBody = new MsgBody();
-		msgBody.setType(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 0, 1)));
+		msgBody.setBodyId(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 0, 1)));
 		msgBody.setSerialId(DigitUtil.byte4ToInt(DigitUtil.sliceBytes(data, 2, 5)));
 		msgBody.setResult(data[6]);
 		msgBody.setMsgBodyBytes(data);

@@ -102,7 +102,7 @@ public class PackageData {
 
 	public static class MsgBody {
 
-		private int msgType;
+		private int bodyId;
 		
 		private int serialId;
 		
@@ -110,12 +110,12 @@ public class PackageData {
 		
 		private byte[] msgBodyBytes;
 		
-		public int getType() {
-			return msgType;
+		public int getBodyId() {
+			return bodyId;
 		}
 
-		public void setType(int type) {
-			this.msgType = type;
+		public void setBodyId(int bodyId) {
+			this.bodyId = bodyId;
 		}
 
 		public int getSerialId() {
