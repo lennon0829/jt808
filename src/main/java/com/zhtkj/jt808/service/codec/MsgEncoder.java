@@ -81,7 +81,7 @@ public class MsgEncoder {
         return msgbs;
 	}
 	
-	//编码通用的应答消息体(只有一个result)
+	//编码通用的应答消息体
 	public byte[] encode4RespBody(int msgType, int replyResult) {
         byte[] src = new byte[2];
         src = DigitUtil.shortTo2Byte((short) msgType);
