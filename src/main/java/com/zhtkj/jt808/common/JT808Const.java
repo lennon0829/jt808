@@ -1,5 +1,9 @@
 package com.zhtkj.jt808.common;
 
+/**
+ * ClassName: JT808Const 
+ * @Description: 消息id、分隔符、抓拍图片保存路径等等配置
+ */
 public class JT808Const {
 
 	//抓拍图片保存路径

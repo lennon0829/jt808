@@ -7,19 +7,17 @@ import io.netty.channel.Channel;
 public class Session {
 
 	private String id;
-	private String terminalPhone;
 	private Channel channel;
 	private DateTime lastCommunicateTime;
 	
 	public Session(String terminalPhone, Channel channel) {
 		this.id = channel.id().asLongText();
-		this.terminalPhone = terminalPhone;
 		this.channel = channel;
 	}
 
 	@Override
 	public String toString() {
-		return "Session [id=" + id + ", terminalPhone=" + terminalPhone + ", channel=" + channel + "]";
+		return "Session [id=" + id + ", channel=" + channel + "]";
 	}
 
 	
@@ -31,15 +29,6 @@ public class Session {
 		this.id = id;
 	}
 
-	
-	public String getTerminalPhone() {
-		return terminalPhone;
-	}
-	
-	public void setTerminalPhone(String terminalPhone) {
-		this.terminalPhone = terminalPhone;
-	}
-	
 	public Channel getChannel() {
 		return channel;
 	}

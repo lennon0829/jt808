@@ -24,6 +24,10 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.concurrent.Future;
 
+/**
+ * ClassName: ServerApplication 
+ * @Description: 主程序及引导程序
+ */
 public class ServerApplication {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServerApplication.class);

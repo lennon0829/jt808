@@ -9,11 +9,15 @@ import com.zhtkj.jt808.vo.Session;
 
 import io.netty.channel.Channel;
 
+/**
+ * ClassName: SessionManager 
+ * @Description: 终端与服务端会话管理
+ */
 public class SessionManager {
 
 	private static volatile SessionManager instance = null;
 
-	//key:终端手机号, value:session
+	//键:终端手机号, 值:session
 	private static Map<String, Session> sessionMap;
 
 	private SessionManager() {

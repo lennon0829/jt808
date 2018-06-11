@@ -15,6 +15,10 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
 
+/**
+ * ClassName: ServerHandler 
+ * @Description: 业务处理handler
+ */
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     private MsgDecoder msgDecoder;

@@ -16,6 +16,10 @@ public class SendDataScheduler {
 	@Autowired
 	private ServerMsgProcessService serverMsgProcessService;
 	
+	/**
+	 * @Description: 定时下发指令   
+	 * @return void  
+	 */
 	@Scheduled(cron = "10/15 * * * * ?")
 	public void sendActionData() {
 		try {
@@ -26,6 +30,10 @@ public class SendDataScheduler {
 		}
 	}
 	
+	/**
+	 * @Description: 定时下发参数   
+	 * @return void  
+	 */
 	@Scheduled(cron = "12/15 * * * * ?")
 	public void sendParamData() {
 		try {
