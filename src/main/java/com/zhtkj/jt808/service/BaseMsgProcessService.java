@@ -43,7 +43,9 @@ public class BaseMsgProcessService {
         	bs[i] = list.get(i);
         }
         //将转义后的byte[]发送给终端
-		channel.writeAndFlush(Unpooled.copiedBuffer(bs)).sync();
+        if (channel.isOpen()) {
+        	channel.writeAndFlush(Unpooled.copiedBuffer(bs)).sync();
+        }
 	}
 
 }
