@@ -86,14 +86,9 @@ public class MsgEncoder {
 	}
 	
 	//编码通用的应答消息体
-	public byte[] encode4CommonRespBody(int msgType, int replyResult) {
-        byte[] src = new byte[2];
-        src = DigitUtil.shortTo2Byte((short) msgType);
-        byte[] target = new byte[3];
-        target[0] = src[0];
-        target[1] = src[1];
-        target[2] = (byte) replyResult;
-        return target;
+	public byte[] encode4CommonRespBody(int bodyId, int replyResult) {
+        byte[] src = DigitUtil.shortTo2Byte((short) bodyId);
+        return ArrayUtil.concatAll(src, new byte[] {(byte) replyResult});
 	}
 	
 	//生成登录响应包
