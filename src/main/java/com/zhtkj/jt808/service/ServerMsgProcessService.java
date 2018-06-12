@@ -42,15 +42,15 @@ public class ServerMsgProcessService extends BaseMsgProcessService {
 				int actionType = action.getActionType();
 				byte[] bodybs = null;
 				if (actionType == 1) { //锁车命令
-					bodybs = msgEncoder.encode4SendActionBody(JT808Const.ACTION_BODY_ID_LOCKCAR, action);
+					bodybs = msgEncoder.encode4CommonActionBody(JT808Const.ACTION_BODY_ID_LOCKCAR, action);
 				} else if (actionType == 2) { //限速命令
-					bodybs = msgEncoder.encode4SendActionBody(JT808Const.ACTION_BODY_ID_LIMITSPEED, action);
+					bodybs = msgEncoder.encode4CommonActionBody(JT808Const.ACTION_BODY_ID_LIMITSPEED, action);
 				} else if (actionType == 3) { //限举命令
-					bodybs = msgEncoder.encode4SendActionBody(JT808Const.ACTION_BODY_ID_LIMITUP, action);
+					bodybs = msgEncoder.encode4CommonActionBody(JT808Const.ACTION_BODY_ID_LIMITUP, action);
 				} else if (actionType == 6) { //管控命令
-					bodybs = msgEncoder.encode4SendActionBody(JT808Const.ACTION_BODY_ID_CONTROL, action);
+					bodybs = msgEncoder.encode4CommonActionBody(JT808Const.ACTION_BODY_ID_CONTROL, action);
 				} else if (actionType == 7) { //运输公司锁车命令
-					bodybs = msgEncoder.encode4SendActionBody(JT808Const.ACTION_BODY_ID_LOCKCARCOMPANY, action);
+					bodybs = msgEncoder.encode4CommonActionBody(JT808Const.ACTION_BODY_ID_LOCKCARCOMPANY, action);
 				} else if (actionType == 4) { //抓拍指令
 					bodybs = msgEncoder.encode4ImageActionBody(JT808Const.ACTION_BODY_ID_IMGACT, action);
 				} else if (actionType == 5) { //密码指令
@@ -87,36 +87,36 @@ public class ServerMsgProcessService extends BaseMsgProcessService {
 				int paramType = param.getParamType();
 				byte[] bodybs = null;
 				if (paramType == 1) {
-					bodybs = msgEncoder.encode4SendFenceParamBody(JT808Const.PARAM_BODY_ID_LINE, param);
+					bodybs = msgEncoder.encode4FenceParamBody(JT808Const.PARAM_BODY_ID_LINE, param);
 				} else if (paramType == 2) {
-					bodybs = msgEncoder.encode4SendFenceParamBody(JT808Const.PARAM_BODY_ID_GONG, param);
+					bodybs = msgEncoder.encode4FenceParamBody(JT808Const.PARAM_BODY_ID_GONG, param);
 				} else if (paramType == 3) {
-					bodybs = msgEncoder.encode4SendFenceParamBody(JT808Const.PARAM_BODY_ID_XIAO, param);
+					bodybs = msgEncoder.encode4FenceParamBody(JT808Const.PARAM_BODY_ID_XIAO, param);
 				} else if (paramType == 4) {
-					bodybs = msgEncoder.encode4SendFenceParamBody(JT808Const.PARAM_BODY_ID_LIMSPCIRCLE, param);
+					bodybs = msgEncoder.encode4FenceParamBody(JT808Const.PARAM_BODY_ID_LIMSPCIRCLE, param);
 				} else if (paramType == 5) {
-					bodybs = msgEncoder.encode4SendFenceParamBody(JT808Const.PARAM_BODY_ID_PARKING, param);
+					bodybs = msgEncoder.encode4FenceParamBody(JT808Const.PARAM_BODY_ID_PARKING, param);
 				} else if (paramType == 6) {
-					bodybs = msgEncoder.encode4SendFenceParamBody(JT808Const.PARAM_BODY_ID_BAN, param);
+					bodybs = msgEncoder.encode4FenceParamBody(JT808Const.PARAM_BODY_ID_BAN, param);
 				}
 				if (paramType == 7) {
-					bodybs = msgEncoder.encode4SendDirectParamBody(JT808Const.PARAM_BODY_ID_WORKPASSPORT, param);
+					bodybs = msgEncoder.encode4DirectParamBody(JT808Const.PARAM_BODY_ID_WORKPASSPORT, param);
 				} else if (paramType == 8) {
-					bodybs = msgEncoder.encode4SendDirectParamBody(JT808Const.PARAM_BODY_ID_INFO, param);
+					bodybs = msgEncoder.encode4DirectParamBody(JT808Const.PARAM_BODY_ID_INFO, param);
 				} else if (paramType == 9) {
-					bodybs = msgEncoder.encode4SendDirectParamBody(JT808Const.PARAM_BODY_ID_FINGER, param);
+					bodybs = msgEncoder.encode4DirectParamBody(JT808Const.PARAM_BODY_ID_FINGER, param);
 				} else if (paramType == 10) {
-					bodybs = msgEncoder.encode4SendDirectParamBody(JT808Const.PARAM_BODY_ID_REDLIGHT, param);
+					bodybs = msgEncoder.encode4DirectParamBody(JT808Const.PARAM_BODY_ID_REDLIGHT, param);
 				} else if (paramType == 11) {
-					bodybs = msgEncoder.encode4SendDirectParamBody(JT808Const.PARAM_BODY_ID_DEVICECONFIG, param);
+					bodybs = msgEncoder.encode4DirectParamBody(JT808Const.PARAM_BODY_ID_DEVICECONFIG, param);
 				} else if (paramType == 12) {
-					bodybs = msgEncoder.encode4SendDirectParamBody(JT808Const.PARAM_BODY_ID_LOCKCAREXT, param);
+					bodybs = msgEncoder.encode4DirectParamBody(JT808Const.PARAM_BODY_ID_LOCKCAREXT, param);
 				} else if (paramType == 13) {
-					bodybs = msgEncoder.encode4SendDirectParamBody(JT808Const.PARAM_BODY_ID_CONTROLSWITCH, param);
+					bodybs = msgEncoder.encode4DirectParamBody(JT808Const.PARAM_BODY_ID_CONTROLSWITCH, param);
 				} else if (paramType == 14) {
-					bodybs = msgEncoder.encode4SendDirectParamBody(JT808Const.PARAM_BODY_ID_THRESHOLDVALUE, param);
+					bodybs = msgEncoder.encode4DirectParamBody(JT808Const.PARAM_BODY_ID_THRESHOLDVALUE, param);
 				} else if (paramType == 15) {
-					bodybs = msgEncoder.encode4SendDirectParamBody(JT808Const.PARAM_BODY_ID_NOTIFY, param);
+					bodybs = msgEncoder.encode4DirectParamBody(JT808Const.PARAM_BODY_ID_NOTIFY, param);
 				}
 				byte[] msgbs = msgEncoder.encode4Msg(JT808Const.PARAM_HEAD_ID, param.getPhoneNumber(), bodybs);
 				Channel channel = sessionManager.getChannelByKey(param.getPhoneNumber());

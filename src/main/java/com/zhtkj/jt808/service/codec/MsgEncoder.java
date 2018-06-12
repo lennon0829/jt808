@@ -86,7 +86,7 @@ public class MsgEncoder {
 	}
 	
 	//编码通用的应答消息体
-	public byte[] encode4RespBody(int msgType, int replyResult) {
+	public byte[] encode4CommonRespBody(int msgType, int replyResult) {
         byte[] src = new byte[2];
         src = DigitUtil.shortTo2Byte((short) msgType);
         byte[] target = new byte[3];
@@ -98,28 +98,28 @@ public class MsgEncoder {
 	
 	//生成登录响应包
 	public byte[] encode4LoginResp(PackageData packageData, RespMsgBody respMsgBody) {
-		byte[] bodybs = this.encode4RespBody(JT808Const.TASK_BODY_ID_LOGIN, respMsgBody.getReplyResult());
+		byte[] bodybs = this.encode4CommonRespBody(JT808Const.TASK_BODY_ID_LOGIN, respMsgBody.getReplyResult());
 		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, packageData.getMsgHead().getTerminalPhone(), bodybs);
 		return msgbs;
 	}
 	
 	//生成登录响应包
 	public byte[] encode4LocationResp(LocationMsg msg, RespMsgBody respMsgBody) {
-		byte[] bodybs = this.encode4RespBody(JT808Const.TASK_BODY_ID_GPS, respMsgBody.getReplyResult());
+		byte[] bodybs = this.encode4CommonRespBody(JT808Const.TASK_BODY_ID_GPS, respMsgBody.getReplyResult());
 		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHead().getTerminalPhone(), bodybs);
 		return msgbs;
 	}
 	
 	//生成事件响应包
 	public byte[] encode4EventResp(EventMsg msg, RespMsgBody respMsgBody) {
-		byte[] bodybs = this.encode4RespBody(JT808Const.TASK_BODY_ID_EVENT, respMsgBody.getReplyResult());
+		byte[] bodybs = this.encode4CommonRespBody(JT808Const.TASK_BODY_ID_EVENT, respMsgBody.getReplyResult());
 		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHead().getTerminalPhone(), bodybs);
 		return msgbs;
 	}
 	
 	//生成终端版本信息上报响应包
 	public byte[] encode4VersionResp(VersionMsg msg, RespMsgBody respMsgBody) {
-		byte[] bodybs = this.encode4RespBody(JT808Const.TASK_BODY_ID_VERSION, respMsgBody.getReplyResult());
+		byte[] bodybs = this.encode4CommonRespBody(JT808Const.TASK_BODY_ID_VERSION, respMsgBody.getReplyResult());
 		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHead().getTerminalPhone(), bodybs);
 		return msgbs;
 	}
@@ -137,7 +137,7 @@ public class MsgEncoder {
 	}
 	
 	//编码通用的要下发的指令消息体
-	public byte[] encode4SendActionBody(int msgType, DataAction action) {
+	public byte[] encode4CommonActionBody(int msgType, DataAction action) {
         byte[] msgTypebs = new byte[2];
         msgTypebs = DigitUtil.shortTo2Byte((short) msgType);
         byte[] serialbs = new byte[4];
@@ -166,7 +166,7 @@ public class MsgEncoder {
 	}
 	
 	//编码参数消息体（直接取值）
-	public byte[] encode4SendDirectParamBody(int msgType, DataParam param) throws UnsupportedEncodingException {
+	public byte[] encode4DirectParamBody(int msgType, DataParam param) throws UnsupportedEncodingException {
         byte[] msgTypebs = new byte[2];
         msgTypebs = DigitUtil.shortTo2Byte((short) msgType);
         byte[] serialbs = new byte[4];
@@ -178,7 +178,7 @@ public class MsgEncoder {
 	}
 	
 	//编码参数消息体（围栏类型）
-	public byte[] encode4SendFenceParamBody(int msgType, DataParam param) throws UnsupportedEncodingException {
+	public byte[] encode4FenceParamBody(int msgType, DataParam param) throws UnsupportedEncodingException {
         byte[] msgTypebs = new byte[2];
         msgTypebs = DigitUtil.shortTo2Byte((short) msgType);
         byte[] serialbs = new byte[4];
