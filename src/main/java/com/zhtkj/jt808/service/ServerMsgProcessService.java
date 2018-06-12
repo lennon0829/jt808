@@ -65,7 +65,7 @@ public class ServerMsgProcessService extends BaseMsgProcessService {
 				//打包消息byte[]
 				byte[] msgbs = msgEncoder.encode4Msg(JT808Const.ACTION_HEAD_ID, action.getPhoneNumber(), bodybs);
 				Channel channel = sessionManager.getChannelByKey(action.getPhoneNumber());
-				if (channel.isOpen()) {
+				if (channel != null && channel.isOpen()) {
 					//发送byte[]给终端并更新receive_result状态
 					send2Terminal(channel, msgbs);
 					dataActionMapper.updateActionReceiveResult(action.getActionId(), 1);
@@ -120,7 +120,7 @@ public class ServerMsgProcessService extends BaseMsgProcessService {
 				}
 				byte[] msgbs = msgEncoder.encode4Msg(JT808Const.PARAM_HEAD_ID, param.getPhoneNumber(), bodybs);
 				Channel channel = sessionManager.getChannelByKey(param.getPhoneNumber());
-				if (channel.isOpen()) {
+				if (channel != null && channel.isOpen()) {
 					//发送byte[]给终端并更新receive_result状态
 					super.send2Terminal(channel, msgbs);
 					dataParamMapper.updateParamReceiveResult(param.getParamId(), 1);
