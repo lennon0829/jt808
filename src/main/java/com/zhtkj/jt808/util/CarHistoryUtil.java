@@ -14,12 +14,12 @@ import com.zhtkj.jt808.vo.req.LocationMsg.LocationInfo;
 */
 public class CarHistoryUtil {
 
-	private static Map<String, CarState> carState = new Hashtable <String, CarState>();
+	private static Map<String, CarState> carState = new Hashtable<String, CarState>();
 	
-	//gps坐标连续相同次数，超过这个数目车辆数据就需要写入历史表
+	//gps坐标连续相同次数
 	private static Long GPS_SAME_TOTAL = 10L;
 	
-	// 判断是否需要写入车辆历史数据到数据库
+	//判断是否需要写入车辆历史数据到数据库
 	public static boolean isPersistent(LocationInfo locationInfo) {
 		CarState lastCarState = carState.get(locationInfo.getCarNumber());
 		CarState newCarState = new CarState();
@@ -28,16 +28,15 @@ public class CarHistoryUtil {
 		newCarState.setBoxUp(locationInfo.getBoxUp() + "");
 		newCarState.setBoxEmpty(locationInfo.getBoxEmpty() + "");
 		boolean result  = true;
-		if (lastCarState==null) {
+		if (lastCarState == null) {
 			newCarState.setGpsSameTotal(0L);
 			newCarState.setUpdateTime(new Date());
 			result =  true;
-		} else if (newCarState.getLongitude().equals(lastCarState.getLongitude())
-				&&newCarState.getLatitude().equals(lastCarState.getLatitude())
-				&&newCarState.getBoxUp().equals(lastCarState.getBoxUp())
-				&&newCarState.getBoxEmpty().equals(lastCarState.getBoxEmpty())) {
+		} else if (newCarState.getLongitude().equals(lastCarState.getLongitude()) && 
+				   newCarState.getLatitude().equals(lastCarState.getLatitude()) && 
+				   newCarState.getBoxUp().equals(lastCarState.getBoxUp()) && 
+				   newCarState.getBoxEmpty().equals(lastCarState.getBoxEmpty())) {
 			newCarState.setGpsSameTotal(lastCarState.getGpsSameTotal() + 1);
-			
 			if (new DateTime(lastCarState.getUpdateTime()).plusMinutes(15).isBeforeNow()) {
 				newCarState.setUpdateTime(new Date());
 				result = true;

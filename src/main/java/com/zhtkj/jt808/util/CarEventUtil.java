@@ -19,19 +19,19 @@ public class CarEventUtil {
 		String carNumber = eventInfo.getLocationInfo().getCarNumber();
 		int eventType = eventInfo.getEventType();
 		if (carEventMap.get(carNumber) == null) {
-			Hashtable <Object,Object> innerMap = new Hashtable <Object, Object>();
+			Hashtable<Object,Object> innerMap = new Hashtable <Object, Object>();
 			innerMap.put(eventType, new DateTime());
 			carEventMap.put(carNumber, innerMap);
 			return true;
 		} else {
-			Hashtable <Object,Object> innerMap = carEventMap.get(carNumber);
+			Hashtable<Object, Object> innerMap = carEventMap.get(carNumber);
 			if(!innerMap.containsKey(eventType)) {
 				innerMap.put(eventType, new DateTime());
 				return true;
 			}else{
 				DateTime dateTime = (DateTime) innerMap.get(eventType);
 				int intervalSec = getIntervalSec(eventType);
-				if (intervalSec==0 || dateTime.plusSeconds(intervalSec).isBeforeNow()) {
+				if (intervalSec == 0 || dateTime.plusSeconds(intervalSec).isBeforeNow()) {
 					innerMap.put(eventType, new DateTime());
 					return true;
 				} else {
