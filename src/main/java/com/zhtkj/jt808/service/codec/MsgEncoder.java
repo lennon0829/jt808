@@ -103,7 +103,7 @@ public class MsgEncoder {
 		return msgbs;
 	}
 	
-	//生成登录响应包
+	//生成位置信息响应包
 	public byte[] encode4LocationResp(LocationMsg msg, RespMsgBody respMsgBody) {
 		byte[] bodybs = this.encode4CommonRespBody(JT808Const.TASK_BODY_ID_GPS, respMsgBody.getReplyResult());
 		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHead().getTerminalPhone(), bodybs);
