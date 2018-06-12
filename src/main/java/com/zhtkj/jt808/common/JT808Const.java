@@ -7,7 +7,7 @@ package com.zhtkj.jt808.common;
 public class JT808Const {
 
 	//抓拍图片保存路径
-    public static String IMAGE_SAVE_PATH = "D:\\catimg\\";
+    public static final String IMAGE_SAVE_PATH = "D:\\catimg\\";
     
 	//消息分隔符
 	public static final int MSG_DELIMITER = 0x7e;
