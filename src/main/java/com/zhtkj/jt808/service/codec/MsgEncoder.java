@@ -121,7 +121,7 @@ public class MsgEncoder {
 	//生成终端配置信息上报响应包
 	public byte[] encode4ConfigResp(ConfigMsg msg, Config config) throws UnsupportedEncodingException {
     	byte[] bodyidbs = DigitUtil.shortTo2Byte((short) JT808Const.TASK_BODY_ID_CONFIG);
-        byte[] headserialbs = DigitUtil.int32To4Byte(msg.getMsgHead().getMsgSerial());
+        byte[] headserialbs = DigitUtil.int32To4Byte(msg.getMsgHead().getHeadSerial());
 		byte[] macbs = config.getMac().getBytes();
 		byte[] configbs = (config.getCarNumber() + "," + config.getDevPhone() + "," 
 				+ config.getVersion() + "," + config.getEcuType() + "," + config.getCarType()).getBytes();

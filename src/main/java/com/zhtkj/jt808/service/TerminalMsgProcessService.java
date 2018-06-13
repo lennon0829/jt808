@@ -169,8 +169,8 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     //处理抓拍业务
     public void processImageActionMsg(PackageData packageData) throws Exception {
     	MsgBody msgBody = packageData.getMsgBody();
-    	byte[] msgBodyBytes = msgBody.getMsgBodyBytes();
-    	long serialId = msgBody.getSerialId();
+    	byte[] bodybs = msgBody.getBodyBytes();
+    	long serialId = msgBody.getBodySerial();
     	//如果流水号很大则是事件抓拍，否则就是指令抓拍
     	if (serialId > 888888) {
     		//这里好像没什么用
@@ -178,7 +178,7 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     		//保存图片到服务器
 			File file = new File(JT808Const.IMAGE_SAVE_PATH + serialId + ".jpg");
 		    try (FileOutputStream out = new FileOutputStream(file)) {
-				out.write(msgBodyBytes, 6, msgBodyBytes.length - 6); //减去标示符2位，唯一ID4位，共6位。
+				out.write(bodybs, 6, bodybs.length - 6); //减去标示符2位，唯一ID4位，共6位。
 				out.flush();
 		    } catch (IOException e) {
 		        throw new RuntimeException(e.getMessage(), e);

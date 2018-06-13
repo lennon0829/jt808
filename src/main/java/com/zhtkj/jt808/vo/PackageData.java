@@ -35,63 +35,56 @@ public class PackageData {
 
 	public static class MsgHead {
 
-	    protected int msgHeadId;
-	    
-	    protected int msgSerial;
-	    
-	    protected int msgBodyLength;
-	    
+	    protected int headId;
+	    protected int headSerial;
+	    protected int bodyLength;
 	    protected int encryptType;
-	    
 	    protected boolean hasSubPack;
-	    
 	    protected String terminalPhone;
-
-		public int getMsgHeadId() {
-			return msgHeadId;
-		}
-
-		public void setMsgHeadId(int msgHeadId) {
-			this.msgHeadId = msgHeadId;
-		}
-
-		public int getMsgBodyLength() {
-			return msgBodyLength;
+		
+		public int getHeadId() {
+			return headId;
 		}
 		
-		public int getMsgSerial() {
-			return msgSerial;
+		public void setHeadId(int headId) {
+			this.headId = headId;
 		}
-
-		public void setMsgSerial(int msgSerial) {
-			this.msgSerial = msgSerial;
+		
+		public int getHeadSerial() {
+			return headSerial;
 		}
-
-		public void setMsgBodyLength(int msgBodyLength) {
-			this.msgBodyLength = msgBodyLength;
+		
+		public void setHeadSerial(int headSerial) {
+			this.headSerial = headSerial;
 		}
-
+		
+		public int getBodyLength() {
+			return bodyLength;
+		}
+		
+		public void setBodyLength(int bodyLength) {
+			this.bodyLength = bodyLength;
+		}
+		
 		public int getEncryptType() {
 			return encryptType;
 		}
-
+		
 		public void setEncryptType(int encryptType) {
 			this.encryptType = encryptType;
 		}
-
+		
 		public boolean isHasSubPack() {
 			return hasSubPack;
 		}
-
+		
 		public void setHasSubPack(boolean hasSubPack) {
 			this.hasSubPack = hasSubPack;
 		}
-
 		
 		public String getTerminalPhone() {
 			return terminalPhone;
 		}
-
 		
 		public void setTerminalPhone(String terminalPhone) {
 			this.terminalPhone = terminalPhone;
@@ -102,45 +95,40 @@ public class PackageData {
 	public static class MsgBody {
 
 		private int bodyId;
-		
-		private int serialId;
-		
+		private int bodySerial;
 		private int result;
-		
-		private byte[] msgBodyBytes;
+		private byte[] bodyBytes;
 		
 		public int getBodyId() {
 			return bodyId;
 		}
-
+		
 		public void setBodyId(int bodyId) {
 			this.bodyId = bodyId;
 		}
-
-		public int getSerialId() {
-			return serialId;
+		
+		public int getBodySerial() {
+			return bodySerial;
 		}
-
-		public void setSerialId(int serialId) {
-			this.serialId = serialId;
+		
+		public void setBodySerial(int bodySerial) {
+			this.bodySerial = bodySerial;
 		}
-
+		
 		public int getResult() {
 			return result;
 		}
-
+		
 		public void setResult(int result) {
 			this.result = result;
 		}
-
 		
-		public byte[] getMsgBodyBytes() {
-			return msgBodyBytes;
+		public byte[] getBodyBytes() {
+			return bodyBytes;
 		}
-
 		
-		public void setMsgBodyBytes(byte[] msgBodyBytes) {
-			this.msgBodyBytes = msgBodyBytes;
+		public void setBodyBytes(byte[] bodyBytes) {
+			this.bodyBytes = bodyBytes;
 		}
 		
 	}

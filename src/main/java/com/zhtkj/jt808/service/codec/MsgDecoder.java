@@ -57,7 +57,7 @@ public class MsgDecoder {
 		PackageData pkg = new PackageData();
 		MsgHead msgHead = this.parseMsgHeadFromBytes(newbs);
 		pkg.setMsgHead(msgHead);
-		byte[] bodybs = DigitUtil.sliceBytes(newbs, 11, 11 + msgHead.getMsgBodyLength() - 1);
+		byte[] bodybs = DigitUtil.sliceBytes(newbs, 11, 11 + msgHead.getBodyLength() - 1);
 		MsgBody msgBody = this.parseMsgBodyFromBytes(bodybs);
 		pkg.setMsgBody(msgBody);
 		return pkg;
@@ -66,15 +66,15 @@ public class MsgDecoder {
 	//解码消息头
 	private MsgHead parseMsgHeadFromBytes(byte[] data) {
 		MsgHead msgHead = new MsgHead();
-		msgHead.setMsgHeadId(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 0, 1)));
+		msgHead.setHeadId(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 0, 1)));
     	boolean hasSubPack = ((byte) ((data[2] >> 5) & 0x1) == 1) ? true : false;
     	msgHead.setHasSubPack(hasSubPack);
     	int encryptType = ((byte) ((data[2] >> 2) & 0x1)) == 1 ? 1 : 0;
     	msgHead.setEncryptType(encryptType);
     	String bodyLen = DigitUtil.byteToBinaryStr(data[1], 1, 0) + DigitUtil.byteToBinaryStr(data[2], 7, 0);
-    	msgHead.setMsgBodyLength(Integer.parseInt(bodyLen, 2));;
+    	msgHead.setBodyLength(Integer.parseInt(bodyLen, 2));;
     	msgHead.setTerminalPhone(new String(DigitUtil.bcdToStr(DigitUtil.sliceBytes(data, 3, 8))));
-    	msgHead.setMsgSerial(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 9, 10)));
+    	msgHead.setHeadSerial(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 9, 10)));
     	return msgHead;
 	}
 	
@@ -82,9 +82,9 @@ public class MsgDecoder {
 	private MsgBody parseMsgBodyFromBytes(byte[] data) {
 		MsgBody msgBody = new MsgBody();
 		msgBody.setBodyId(DigitUtil.byte2ToInt(DigitUtil.sliceBytes(data, 0, 1)));
-		msgBody.setSerialId(DigitUtil.byte4ToInt(DigitUtil.sliceBytes(data, 2, 5)));
+		msgBody.setBodySerial(DigitUtil.byte4ToInt(DigitUtil.sliceBytes(data, 2, 5)));
 		msgBody.setResult(data[6]);
-		msgBody.setMsgBodyBytes(data);
+		msgBody.setBodyBytes(data);
     	return msgBody;
 	}
 	
@@ -92,52 +92,52 @@ public class MsgDecoder {
 	public LocationMsg toLocationMsg(PackageData packageData) throws UnsupportedEncodingException {
 		LocationMsg locationMsg = new LocationMsg(packageData);
 		LocationInfo locationInfo = new LocationInfo();
-		byte[] msgBodyBytes = locationMsg.getMsgBody().getMsgBodyBytes();
+		byte[] bodybs = locationMsg.getMsgBody().getBodyBytes();
 		//设置终端手机号
 		locationInfo.setDevPhone(locationMsg.getMsgHead().getTerminalPhone());
 		//设置终端地址
 		locationInfo.setRemoteAddress(locationMsg.getChannel().remoteAddress().toString());
 		//处理状态
-		locationInfo.setCarState(DigitUtil.byteToBinaryStr(msgBodyBytes[2]) + DigitUtil.byteToBinaryStr(msgBodyBytes[3]));
+		locationInfo.setCarState(DigitUtil.byteToBinaryStr(bodybs[2]) + DigitUtil.byteToBinaryStr(bodybs[3]));
         //处理经度
-        float gpsPosX = DigitUtil.byte4ToInt(msgBodyBytes, 4);
+        float gpsPosX = DigitUtil.byte4ToInt(bodybs, 4);
         locationInfo.setGpsPosX(gpsPosX*25/9/1000000);
         //处理纬度
-        float gpsPosY = DigitUtil.byte4ToInt(msgBodyBytes, 8);
+        float gpsPosY = DigitUtil.byte4ToInt(bodybs, 8);
         locationInfo.setGpsPosY(gpsPosY*25/9/1000000);
         //处理高程
-        float gpsHeight = DigitUtil.byte2ToInt(new byte[] {msgBodyBytes[12], msgBodyBytes[13]});
+        float gpsHeight = DigitUtil.byte2ToInt(new byte[] {bodybs[12], bodybs[13]});
         locationInfo.setGpsHeight(gpsHeight);
         //处理速度
-        float gpsSpeed = DigitUtil.byte2ToInt(new byte[] {msgBodyBytes[14], msgBodyBytes[15]});
+        float gpsSpeed = DigitUtil.byte2ToInt(new byte[] {bodybs[14], bodybs[15]});
         locationInfo.setGpsSpeed(gpsSpeed);
         //处理方向
-        float gpsDirect = DigitUtil.byte2ToInt(new byte[] {msgBodyBytes[16], msgBodyBytes[17]});
+        float gpsDirect = DigitUtil.byte2ToInt(new byte[] {bodybs[16], bodybs[17]});
         locationInfo.setGpsDirect(gpsDirect/100);
         //处理设备发送时间
-        String year = DigitUtil.bcdToStr(msgBodyBytes[18]);
-        String month = DigitUtil.bcdToStr(msgBodyBytes[19]);
-        String day = DigitUtil.bcdToStr(msgBodyBytes[20]);
-        String hour = DigitUtil.bcdToStr(msgBodyBytes[21]);
-        String minute = DigitUtil.bcdToStr(msgBodyBytes[22]);
-        String second = DigitUtil.bcdToStr(msgBodyBytes[23]);
+        String year = DigitUtil.bcdToStr(bodybs[18]);
+        String month = DigitUtil.bcdToStr(bodybs[19]);
+        String day = DigitUtil.bcdToStr(bodybs[20]);
+        String hour = DigitUtil.bcdToStr(bodybs[21]);
+        String minute = DigitUtil.bcdToStr(bodybs[22]);
+        String second = DigitUtil.bcdToStr(bodybs[23]);
         String sendDatetime = "20" + year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
         locationInfo.setSendDatetime(sendDatetime);
         //处理车牌号码
-        String carNumber = new String(DigitUtil.sliceBytes(msgBodyBytes, 24, 31), "GBK");
+        String carNumber = new String(DigitUtil.sliceBytes(bodybs, 24, 31), "GBK");
 		locationInfo.setCarNumber(carNumber);
         //处理司机ID
-        locationInfo.setDriverId(new String(DigitUtil.sliceBytes(msgBodyBytes, 32, 41)));
+        locationInfo.setDriverId(new String(DigitUtil.sliceBytes(bodybs, 32, 41)));
         //处理核准证ID
-        locationInfo.setWorkPassport(new String(DigitUtil.sliceBytes(msgBodyBytes, 42, 51)));
+        locationInfo.setWorkPassport(new String(DigitUtil.sliceBytes(bodybs, 42, 51)));
         //处理车厢状态
-        locationInfo.setBoxClose(msgBodyBytes[52]);
+        locationInfo.setBoxClose(bodybs[52]);
         //处理举升状态
-        locationInfo.setBoxUp(msgBodyBytes[53]);
+        locationInfo.setBoxUp(bodybs[53]);
         //处理空重状态
-        locationInfo.setBoxEmpty(msgBodyBytes[54]);
+        locationInfo.setBoxEmpty(bodybs[54]);
         //处理违规情况
-        locationInfo.setCarWeigui(msgBodyBytes[55]);
+        locationInfo.setCarWeigui(bodybs[55]);
         locationMsg.setLocationInfo(locationInfo);
 		return locationMsg;
 	}
@@ -147,7 +147,7 @@ public class MsgDecoder {
 		EventMsg eventMsg = new EventMsg(packageData);
 		EventInfo eventInfo = new EventInfo();
 		LocationInfo locationInfo = new LocationInfo();
-		byte[] msgBodyBytes = eventMsg.getMsgBody().getMsgBodyBytes();
+		byte[] msgBodyBytes = eventMsg.getMsgBody().getBodyBytes();
         //处理事件流水号
         long eventSerialId = DigitUtil.byte4ToInt(DigitUtil.sliceBytes(msgBodyBytes, 2, 5), 0);
         eventInfo.setEventSerialId(eventSerialId);
@@ -210,7 +210,7 @@ public class MsgDecoder {
 	public VersionMsg toVersionMsg(PackageData packageData) throws UnsupportedEncodingException {
 		VersionMsg versionMsg = new VersionMsg(packageData);
 		VersionInfo versionInfo = new VersionInfo();
-		byte[] bodybs = packageData.getMsgBody().getMsgBodyBytes();
+		byte[] bodybs = packageData.getMsgBody().getBodyBytes();
     	Integer ecuType = (int) bodybs[8];
     	Integer carType = (int) bodybs[9];
     	byte[] infobs = new byte[bodybs.length - 10];
@@ -232,7 +232,7 @@ public class MsgDecoder {
 	public ConfigMsg toConfigMsg(PackageData packageData) throws UnsupportedEncodingException {
 		ConfigMsg configMsg = new ConfigMsg(packageData);
 		ConfigInfo configInfo = new ConfigInfo();
-		byte[] bodybs = packageData.getMsgBody().getMsgBodyBytes();
+		byte[] bodybs = packageData.getMsgBody().getBodyBytes();
     	byte[] macbs = new byte[17];
     	for (int i = 0; i < 17; i++) {
     		macbs[i] = bodybs[i + 12]; 
