@@ -38,10 +38,9 @@ public class MsgEncoder {
         //消息体属性
         //先获取消息体长度，并转成2个字节16位格式
         //808规范中用10bit表示长度，所以最大不能超过1024
-        byte[] bodylengthbs = new byte[2];
-        bodylengthbs = DigitUtil.shortTo2Byte((short) bodybs.length);
+        byte[] bodylengthbs = DigitUtil.shortTo2Byte((short) bodybs.length);
         //808规范中用10bit表示长度，所以只取低10bit，0~9
-        String bodylengthstr = "" +
+        String bodylength = "" +
                 //第一个字节最后2bit
                 + (byte) ((bodylengthbs[0] >> 1) & 0x1) + (byte) ((bodylengthbs[0] >> 0) & 0x1)
                 //第二个字节8bit
@@ -51,16 +50,16 @@ public class MsgEncoder {
                 + (byte) ((bodylengthbs[1] >> 1) & 0x1) + (byte) ((bodylengthbs[1] >> 0) & 0x1);
         //加密方式为不加密，第10、11、12三位都为0，表示消息体不加密
         String encrypt = "000";
-        //分包，无分包，第13bit为0
+        //暂无分包，第13bit为0
         String subpackage = "0";
         //保留，第14，15bit为0
         String retain = "00";
         //生成消息体属性
         byte[] bodyattrbs = new byte[2];
         //消息体高8位
-        bodyattrbs[0] = DigitUtil.binaryStrToByte(retain + subpackage + encrypt + bodylengthstr.substring(0, 2));
+        bodyattrbs[0] = DigitUtil.binaryStrToByte(retain + subpackage + encrypt + bodylength.substring(0, 2));
         //消息体低8位
-        bodyattrbs[1] = DigitUtil.binaryStrToByte(bodylengthstr.substring(2, 10));
+        bodyattrbs[1] = DigitUtil.binaryStrToByte(bodylength.substring(2, 10));
         headbs[3] = bodyattrbs[0];
         headbs[4] = bodyattrbs[1];
         //手机号码
