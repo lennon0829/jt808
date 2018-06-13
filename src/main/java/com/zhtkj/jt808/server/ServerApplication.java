@@ -116,7 +116,7 @@ public class ServerApplication {
         //初始化netty
 		new ServerApplication(6666).startServer();
 		
-		//初始化窗口，这个窗口只是用来展示服务端是否启动，没有其他作用
+		//初始化窗口，这个窗口只是用来展示服务端是否启动
 		JFrame frame = new JFrame();  
         frame.setTitle("终端通讯服务端(这个窗口只是用来展示服务端是否启动)");
         frame.setSize(618, 381);
