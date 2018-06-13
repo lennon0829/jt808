@@ -51,8 +51,10 @@
 	</insert>
 	
 	<update id="updateCarRuntime">
-		update zt_car_runtime
-		set car_number = '${locationInfo.carNumber}',
+		update 
+		  zt_car_runtime
+		set 
+		  car_number = '${locationInfo.carNumber}',
 		  ip_address = '${locationInfo.remoteAddress}',
 		  gps_pos_x = '${locationInfo.gpsPosX}',
 		  gps_pos_y = '${locationInfo.gpsPosY}',
@@ -75,16 +77,20 @@
 	</update>
 
 	<update id="setCarOnlineState">
-		update zt_car_runtime
-		set online_datetime = now(),
+		update 
+		  zt_car_runtime
+		set 
+		  online_datetime = now(),
 		  online_state = 1
 		where
 		  dev_phone = '${devPhone}' 
 	</update>
 	
     <update id="setCarOfflineState">
-		update zt_car_runtime
-		set offline_datetime = now(),
+		update 
+		  zt_car_runtime
+		set 
+		  offline_datetime = now(),
 		  online_state = 0
 		where
 		  revice_datetime &lt;= '${idleTime}'

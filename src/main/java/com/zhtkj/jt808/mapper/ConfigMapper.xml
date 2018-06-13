@@ -31,8 +31,10 @@
 	</insert>
 	
 	<update id="updateConfig">
-		update zt_config
-		set car_number = '${configInfo.carNumber}',
+		update 
+		  zt_config
+		set 
+		  car_number = '${configInfo.carNumber}',
 		  dev_phone = '${configInfo.devPhone}',
 		  version = '${configInfo.version}',
 		  ecu_type = '${configInfo.ecuType}',

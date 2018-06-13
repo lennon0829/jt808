@@ -3,16 +3,20 @@
 <mapper namespace="com.zhtkj.jt808.mapper.DataParamMapper">
 	
 	<update id="updateParamResult">
-		update zt_data_param
-		set deal_result = '${msgBody.result}',
+		update 
+		  zt_data_param
+		set 
+		  deal_result = '${msgBody.result}',
 		  deal_time = now()
 		where
 		  param_id = '${msgBody.serialId}' 
 	</update>
 	
 	<update id="updateParamReceiveResult">
-		update zt_data_param
-		set receive_result = '${receiveResult}'
+		update 
+		  zt_data_param
+		set 
+		  receive_result = '${receiveResult}'
 		where
 		  param_id = '${paramId}' 
 	</update>
@@ -44,4 +48,5 @@
 	    where 
 	      receive_result = 0 
 	</select>
+	
 </mapper>
