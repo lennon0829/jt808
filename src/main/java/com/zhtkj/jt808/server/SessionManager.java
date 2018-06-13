@@ -69,9 +69,7 @@ public class SessionManager {
 		while (iterator.hasNext()) {
 			Channel channel = iterator.next().getValue().getChannel();
 			if (channel.id().asLongText().equals(channelId)) {
-				if (channel.isOpen()) {
-					channel.close();
-				}
+				channel.close();
 				iterator.remove();
 			}
 		}
