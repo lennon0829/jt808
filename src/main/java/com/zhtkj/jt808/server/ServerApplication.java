@@ -34,9 +34,10 @@ public class ServerApplication {
 	
 	private volatile boolean isRunning = false;
 
+	private int port;
 	private EventLoopGroup bossGroup = null;
 	private EventLoopGroup workerGroup = null;
-	private int port;
+	
 
 	public ServerApplication(int port) {
 		this.port = port;
