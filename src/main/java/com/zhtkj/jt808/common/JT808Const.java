@@ -67,13 +67,13 @@ public class JT808Const {
 
     public static final int PARAM_BODY_ID_REDLIGHT = 0x030A; //参数类 - 红灯电子围栏ID   
     
-    public static final int PARAM_BODY_ID_DEVICECONFIG = 0x030B; //参数类 - 终端地址配置 
+    public static final int PARAM_BODY_ID_DEVICECONFIG = 0x030B; //参数类 - 终端配置ID
     
-    public static final int PARAM_BODY_ID_LOCKCAREXT = 0x030C; //参数类 - 扩展锁车命令信息定义
+    public static final int PARAM_BODY_ID_LOCKCAREXT = 0x030C; //参数类 - 扩展锁车命令信息ID
     
-    public static final int PARAM_BODY_ID_NOTIFY = 0x030D; //参数类 - 资讯提示信息定义
+    public static final int PARAM_BODY_ID_NOTIFY = 0x030D; //参数类 - 资讯提示信息ID
     
-    public static final int PARAM_BODY_ID_CONTROLSWITCH = 0x0380; //参数类 - 管控处理开关
+    public static final int PARAM_BODY_ID_CONTROLSWITCH = 0x0380; //参数类 - 管控处理开关ID
     
-    public static final int PARAM_BODY_ID_THRESHOLDVALUE = 0x0381; //参数类 - 业务阙值定义
+    public static final int PARAM_BODY_ID_THRESHOLDVALUE = 0x0381; //参数类 - 业务阙值ID
 }
