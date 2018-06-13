@@ -64,6 +64,7 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
         byte[] bs = this.msgEncoder.encode4LoginResp(packageData, new RespMsgBody((byte) 1));
         String terminalPhone = packageData.getMsgHead().getTerminalPhone();
         Session session = new Session(terminalPhone, packageData.getChannel());
+        session.setLastCommunicateTime(new DateTime());
         sessionManager.addSession(terminalPhone, session);
         carRuntimeMapper.setCarOnlineState(terminalPhone);
         super.send2Terminal(packageData.getChannel(), bs);
