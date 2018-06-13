@@ -1,10 +1,8 @@
 package com.zhtkj.jt808.server;
 
-import java.awt.GridLayout;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -120,11 +118,8 @@ public class ServerApplication {
 		
 		//初始化窗口，这个窗口只是用来展示服务端是否启动，没有其他作用
 		JFrame frame = new JFrame();  
-        JPanel panel = new JPanel();  
-        panel.setLayout(new GridLayout());  
-        frame.add(panel);  
-        frame.setTitle("终端通讯服务端");
-        frame.setSize(618, 381);  
+        frame.setTitle("终端通讯服务端(这个窗口只是用来展示服务端是否启动)");
+        frame.setSize(618, 381);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
