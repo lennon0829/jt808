@@ -61,15 +61,10 @@ public class CarHistoryUtil {
 class CarState {
 	
 	public String longitude;
-	
 	public String latitude;
-	
 	public String boxUp;
-	
 	public String boxEmpty;
-	
 	public Long gpsSameTotal;
-	
 	public Date updateTime;
 	
 	public String getLongitude() {
