@@ -61,12 +61,13 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
 	
     //处理终端登录业务
     public void processLoginMsg(PackageData packageData) throws Exception {
-        byte[] bs = this.msgEncoder.encode4LoginResp(packageData, new RespMsgBody((byte) 1));
         String terminalPhone = packageData.getMsgHead().getTerminalPhone();
         Session session = new Session(terminalPhone, packageData.getChannel());
         session.setLastCommunicateTime(new DateTime());
         sessionManager.addSession(terminalPhone, session);
         carRuntimeMapper.setCarOnlineState(terminalPhone);
+        //发送登录响应数据包给终端，暂时是不用验证就可以登录
+        byte[] bs = this.msgEncoder.encode4LoginResp(packageData, new RespMsgBody((byte) 1));
         super.send2Terminal(packageData.getChannel(), bs);
     }
 
@@ -193,4 +194,5 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     public void processParamMsg(PackageData packageData) {
     	dataParamMapper.updateParamResult(packageData.getMsgBody());
     }
+    
 }
