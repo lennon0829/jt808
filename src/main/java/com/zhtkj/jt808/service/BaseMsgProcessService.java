@@ -23,16 +23,16 @@ public class BaseMsgProcessService {
 	}
 
 	public void send2Terminal(Channel channel, byte[] array) throws InterruptedException {
-		//转义数据包
+		//按照808协议转义数据包
         List<Byte> list = new ArrayList<Byte>();
         list.add((byte)JT808Const.MSG_DELIMITER);
         for (int i = 1; i < array.length - 1; i++){
             if (array[i] == (byte)JT808Const.MSG_DELIMITER) {
-            	list.add((byte)0x7d);
-            	list.add((byte)0x02);
+            	list.add((byte) 0x7d);
+            	list.add((byte) 0x02);
             } else if (array[i] == (byte)0x7d) {
-            	list.add((byte)0x7d);
-            	list.add((byte)0x01);
+            	list.add((byte) 0x7d);
+            	list.add((byte) 0x01);
             } else {
             	list.add(array[i]);
             }
