@@ -24,7 +24,7 @@ public class TerminalScheduler {
 	 * @Description: 移除没有持续上报数据的终端session, 并更改车辆实时表的车辆状态为离线状态   
 	 * @return void  
 	 */
-	@Scheduled(cron = "0 6/6 * * * ? ")
+	@Scheduled(cron = "0 6/6 * * * ?")
 	public void removeIdleSession() {
 		Iterator<Entry<String, Session>> iterator = 
 				SessionManager.getInstance().getSessionMap().entrySet().iterator();
