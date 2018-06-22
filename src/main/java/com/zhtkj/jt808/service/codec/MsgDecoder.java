@@ -96,7 +96,7 @@ public class MsgDecoder {
 		//设置终端手机号
 		locationInfo.setDevPhone(locationMsg.getMsgHead().getTerminalPhone());
 		//设置终端地址
-		locationInfo.setRemoteAddress(locationMsg.getChannel().remoteAddress().toString());
+		locationInfo.setTerminalIp(locationMsg.getChannel().remoteAddress().toString());
 		//处理状态
 		locationInfo.setCarState(DigitUtil.byteToBinaryStr(bodybs[2]) + DigitUtil.byteToBinaryStr(bodybs[3]));
         //处理经度
@@ -159,7 +159,7 @@ public class MsgDecoder {
 		//设置终端sim
 		locationInfo.setDevPhone(eventMsg.getMsgHead().getTerminalPhone());
 		//设置终端地址
-		locationInfo.setRemoteAddress(eventMsg.getChannel().remoteAddress().toString());
+		locationInfo.setTerminalIp(eventMsg.getChannel().remoteAddress().toString());
 		//处理状态
 		locationInfo.setCarState(DigitUtil.byteToBinaryStr(locationbs[2]) + DigitUtil.byteToBinaryStr(locationbs[3]));
         //处理经度

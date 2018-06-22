@@ -6,7 +6,6 @@ import com.zhtkj.jt808.vo.PackageData;
  * ClassName: LocationMsg 
  * @Description: 基本位置信息消息
  */
- 
 public class LocationMsg extends PackageData {
 
 	/**
@@ -37,7 +36,7 @@ public class LocationMsg extends PackageData {
 		
 		private String carNumber; //车牌号码
 		private String devPhone; //终端sim
-		private String remoteAddress; //终端ip地址
+		private String terminalIp; //终端ip地址
 		private String carState; //车辆状态
 		private float gpsPosX; //经度
 		private float gpsPosY; //纬度
@@ -60,13 +59,13 @@ public class LocationMsg extends PackageData {
 		public void setDevPhone(String devPhone) {
 			this.devPhone = devPhone;
 		}
-
-		public String getRemoteAddress() {
-			return remoteAddress;
+		
+		public String getTerminalIp() {
+			return terminalIp;
 		}
-
-		public void setRemoteAddress(String remoteAddress) {
-			this.remoteAddress = remoteAddress;
+		
+		public void setTerminalIp(String terminalIp) {
+			this.terminalIp = terminalIp;
 		}
 
 		public String getCarState() {

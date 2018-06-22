@@ -29,7 +29,7 @@
 		  (
 		  	'${locationInfo.devPhone}',
 		    '${locationInfo.carNumber}',
-		    '${locationInfo.remoteAddress}',
+		    '${locationInfo.terminalIp}',
 		    ${locationInfo.gpsPosX},
 		    ${locationInfo.gpsPosY},
 		    ${locationInfo.gpsSpeed},
@@ -55,7 +55,7 @@
 		  zt_car_runtime
 		set 
 		  car_number = '${locationInfo.carNumber}',
-		  ip_address = '${locationInfo.remoteAddress}',
+		  ip_address = '${locationInfo.terminalIp}',
 		  gps_pos_x = '${locationInfo.gpsPosX}',
 		  gps_pos_y = '${locationInfo.gpsPosY}',
 		  gps_speed = '${locationInfo.gpsSpeed}',
