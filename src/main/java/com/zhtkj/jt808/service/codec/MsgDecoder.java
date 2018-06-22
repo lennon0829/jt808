@@ -12,8 +12,6 @@ import com.zhtkj.jt808.util.DigitUtil;
 import com.zhtkj.jt808.vo.PackageData;
 import com.zhtkj.jt808.vo.PackageData.MsgBody;
 import com.zhtkj.jt808.vo.PackageData.MsgHead;
-import com.zhtkj.jt808.vo.req.ConfigMsg;
-import com.zhtkj.jt808.vo.req.ConfigMsg.ConfigInfo;
 import com.zhtkj.jt808.vo.req.EventMsg;
 import com.zhtkj.jt808.vo.req.EventMsg.EventInfo;
 import com.zhtkj.jt808.vo.req.LocationMsg;
@@ -226,21 +224,6 @@ public class MsgDecoder {
     	versionInfo.setCarType(carType.toString());
     	versionMsg.setVersionInfo(versionInfo);
     	return versionMsg;
-	}
-	
-	//解码终端配置更新信息
-	public ConfigMsg toConfigMsg(PackageData packageData) throws UnsupportedEncodingException {
-		ConfigMsg configMsg = new ConfigMsg(packageData);
-		ConfigInfo configInfo = new ConfigInfo();
-		byte[] bodybs = packageData.getMsgBody().getBodyBytes();
-    	byte[] macbs = new byte[17];
-    	for (int i = 0; i < 17; i++) {
-    		macbs[i] = bodybs[i + 12]; 
-    	}
-    	String mac = new String(macbs);
-    	configInfo.setMac(mac);
-    	configMsg.setConfigInfo(configInfo);
-    	return configMsg;
 	}
 	
 }

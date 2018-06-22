@@ -12,7 +12,6 @@ import com.zhtkj.jt808.entity.DataParam;
 import com.zhtkj.jt808.util.ArrayUtil;
 import com.zhtkj.jt808.util.DigitUtil;
 import com.zhtkj.jt808.vo.PackageData;
-import com.zhtkj.jt808.vo.req.ConfigMsg;
 import com.zhtkj.jt808.vo.req.EventMsg;
 import com.zhtkj.jt808.vo.req.LocationMsg;
 import com.zhtkj.jt808.vo.req.VersionMsg;
@@ -119,14 +118,14 @@ public class MsgEncoder {
 	}
 	
 	//生成终端配置信息上报响应包
-	public byte[] encode4ConfigResp(ConfigMsg msg, Config config) throws UnsupportedEncodingException {
+	public byte[] encode4ConfigResp(PackageData packageData, Config config) throws UnsupportedEncodingException {
     	byte[] bodyidbs = DigitUtil.shortTo2Byte((short) JT808Const.TASK_BODY_ID_CONFIG);
-        byte[] headserialbs = DigitUtil.int32To4Byte(msg.getMsgHead().getHeadSerial());
+        byte[] headserialbs = DigitUtil.int32To4Byte(packageData.getMsgHead().getHeadSerial());
 		byte[] macbs = config.getMac().getBytes();
 		byte[] configbs = (config.getCarNumber() + "," + config.getDevPhone() + "," 
 				+ config.getVersion() + "," + config.getEcuType() + "," + config.getCarType()).getBytes();
 		byte[] bodybs = ArrayUtil.concatAll(bodyidbs, headserialbs, macbs, configbs);
-		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, msg.getMsgHead().getTerminalPhone(), bodybs);
+		byte[] msgbs = this.encode4Msg(JT808Const.TASK_HEAD_ID, packageData.getMsgHead().getTerminalPhone(), bodybs);
 		return msgbs;
 	}
 	

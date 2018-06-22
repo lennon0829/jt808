@@ -5,7 +5,6 @@ import com.zhtkj.jt808.service.TerminalMsgProcessService;
 import com.zhtkj.jt808.service.codec.MsgDecoder;
 import com.zhtkj.jt808.vo.PackageData;
 import com.zhtkj.jt808.vo.PackageData.MsgBody;
-import com.zhtkj.jt808.vo.req.ConfigMsg;
 import com.zhtkj.jt808.vo.req.EventMsg;
 import com.zhtkj.jt808.vo.req.LocationMsg;
 import com.zhtkj.jt808.vo.req.VersionMsg;
@@ -89,8 +88,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 			VersionMsg msg = this.msgDecoder.toVersionMsg(packageData);
 			this.msgProcessService.processVersionMsg(msg);
 		} else if (bodyId == JT808Const.TASK_BODY_ID_CONFIG) {
-			ConfigMsg msg = this.msgDecoder.toConfigMsg(packageData);
-			this.msgProcessService.processConfigMsg(msg);
+			this.msgProcessService.processConfigMsg(packageData);
 		}
 		
 		//命令类业务处理，这里是接收下发命令的响应，不是下发命令
