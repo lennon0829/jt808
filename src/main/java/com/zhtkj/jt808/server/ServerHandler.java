@@ -17,7 +17,7 @@ import io.netty.util.ReferenceCountUtil;
 
 /**
  * ClassName: ServerHandler 
- * @Description: 业务处理handler
+ * @Description: 业务处理handler, 所有终端发过来的数据首先就是由这个handler处理
  */
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
@@ -70,7 +70,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 		
 	}
 	
-	//业务处理逻辑
+	//根据不同的消息类型，选择不同的业务处理
 	private void processPackageData(PackageData packageData) throws Exception {
 		MsgBody body = packageData.getMsgBody();
 		int bodyId = body.getBodyId();
@@ -93,7 +93,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 			this.msgProcessService.processConfigMsg(msg);
 		}
 		
-		//命令类业务处理，在这里是接收下发命令的响应，不是下发命令
+		//命令类业务处理，这里是接收下发命令的响应，不是下发命令
 		if (bodyId == JT808Const.ACTION_BODY_ID_LOCKCAR ||
 			bodyId == JT808Const.ACTION_BODY_ID_LIMITSPEED ||
 			bodyId == JT808Const.ACTION_BODY_ID_LIMITUP ||
@@ -105,7 +105,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 			this.msgProcessService.processImageActionMsg(packageData);
 		}
 		
-		//参数类业务处理，在这里是接收下发参数的响应，不是下发参数
+		//参数类业务处理，这里是接收下发参数的响应，不是下发参数
 		if (bodyId == JT808Const.PARAM_BODY_ID_LINE ||
 			bodyId == JT808Const.PARAM_BODY_ID_GONG ||
 			bodyId == JT808Const.PARAM_BODY_ID_XIAO ||
