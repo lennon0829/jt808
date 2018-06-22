@@ -3,7 +3,7 @@ package com.zhtkj.jt808.util;
 public class DigitUtil {
 
     /**
-     * @Description: 截取byte数组
+     * @Description: 截取byte数组，含头含尾
      * @param src
      * @param start
      * @param end

@@ -21,6 +21,7 @@ import com.zhtkj.jt808.mapper.DataParamMapper;
 import com.zhtkj.jt808.service.codec.MsgEncoder;
 import com.zhtkj.jt808.util.CarEventUtil;
 import com.zhtkj.jt808.util.CarHistoryUtil;
+import com.zhtkj.jt808.util.DigitUtil;
 import com.zhtkj.jt808.vo.PackageData;
 import com.zhtkj.jt808.vo.PackageData.MsgBody;
 import com.zhtkj.jt808.vo.Session;
@@ -149,10 +150,7 @@ public class TerminalMsgProcessService extends BaseMsgProcessService {
     //处理终端配置更新业务
     public void processConfigMsg(PackageData packageData) throws Exception {
 		byte[] bodybs = packageData.getMsgBody().getBodyBytes();
-    	byte[] macbs = new byte[17];
-    	for (int i = 0; i < 17; i++) {
-    		macbs[i] = bodybs[i + 12]; 
-    	}
+    	byte[] macbs = DigitUtil.sliceBytes(bodybs, 12, 28);
     	String mac = new String(macbs);
     	List<Config> configs = configMapper.selectConfigByKey(mac);
     	if (configs.size() > 0) {
